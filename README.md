@@ -1,13 +1,13 @@
 # Resistance Calculator
-<h2>Funkcjonalności:</h2>
--Wprowadzanie kolorów linii na rezystorach, która ułatwi obliczenia jak i obsługę <br>
--Walidacja wprowadzonych danych <br>
--Wyświetlanie wyników obliczeń w widoku aplikacji <br>
--Opcję resetowania wprowadzonych wartości i wyników obliczeń <br>
--Dodanie opcji wyboru liczby pasm na rezystorze, takie jak 4-pasmowy, 5-pasmowy itd. <br>
--Dodanie opcji wyboru dokładności rezystancji (tolerancji). <br>
--Opcję zapisania wyników obliczeń do historii, dzięki czemu użytkownik może je przeglądać i odtwarzać. <br>
--Dodanie opcji zmiany jednostki rezystancji na inne jednostki, takie jak kΩ, MΩ itd. <br>
--Dodanie opcji wyboru trybu ciemnego i jasnego dla wyglądu aplikacji. <br>
--Opcję wyświetlenia wykresu charakterystyki prądowo-napięciowej rezystora <br>
--Dodanie opcji wyboru języka interfejsu użytkownika, takie jak angielski, polski itd. <br>
+<h2>Functionalities:</h2>
+    Inputting resistor line colors to facilitate calculations and usage
+    Validation of inputted data
+    Displaying calculation results in the application view
+    Option to reset inputted values and calculation results
+    Adding the option to select the number of bands on the resistor, such as 4-band, 5-band, etc.
+    Adding the option to select the precision of resistance (tolerance).
+    Option to save calculation results to history, allowing users to view and replay them.
+    Adding the option to change the unit of resistance to other units, such as kΩ, MΩ, etc.
+    Adding the option to choose a light or dark mode for the application interface.
+    Displaying a graph of the current-voltage characteristic of the resistor
+    Adding the option to select the language of the user interface, such as English, Polish, etc.
