@@ -1,8 +1,8 @@
 # Resistance Calculator
 <h2>Authors</h2>
-<br>Robert Brzoskowski s21162<\br>
-Artur Jankowski s21161
-Bartosz Krystowski s19545
+Robert Brzoskowski s21162</br>
+Artur Jankowski s21161</br>
+Bartosz Krystowski s19545</br>
 <h2>Functionalities:</h2>
 <ul>
   <li>Inputting resistor line colors to facilitate calculations and usage</li>
