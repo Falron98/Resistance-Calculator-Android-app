@@ -16,7 +16,7 @@
         android:text="@string/btn_calculate_resistance" />
 
     <Button
-        android:id="@+id/btnShowPastResults"
+        android:id="@+id/btnCalculateParallelAndSeries"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/btnCalculateResistance"
@@ -26,7 +26,7 @@
         android:text="Calculate Parallel And Series" />
 
     <Button
-        android:id="@+id/btnCalculateParallelAndSeries"
+        android:id="@+id/btnShowPastResults"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/btnCalculateResistance"
