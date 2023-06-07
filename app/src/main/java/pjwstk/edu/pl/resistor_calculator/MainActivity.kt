@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
     private lateinit var btnCalculateResistance: Button
     private lateinit var btnShowPastResults: Button
     private lateinit var btnSettings: Button
+    private lateinit var btnCalculateParallelAndSeries: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,11 +24,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         btnCalculateResistance = findViewById(R.id.btnCalculateResistance)
         btnShowPastResults = findViewById(R.id.btnShowPastResults)
         btnSettings = findViewById(R.id.btnSettings)
+        btnCalculateParallelAndSeries = findViewById(R.id.btnCalculateParallelAndSeries)
 
         // Set click listeners for buttons
         btnCalculateResistance.setOnClickListener(this)
         btnShowPastResults.setOnClickListener(this)
         btnSettings.setOnClickListener(this)
+        btnCalculateParallelAndSeries.setOnClickListener(this)
 
         // Initialize night mode switch
         val switch = findViewById<SwitchCompat>(R.id.switch1)
