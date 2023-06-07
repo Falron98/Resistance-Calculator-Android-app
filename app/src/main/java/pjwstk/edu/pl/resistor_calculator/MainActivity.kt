@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
             when (view.id) {
                 R.id.btnCalculateResistance -> {
                     // Start resistance calculator activity
-                    val intent = Intent(this, ResistanceCalculatorActivity::class.java)
+                    val intent = Intent(this, ChooseStripesActivity::class.java)
                     startActivity(intent)
                 }
                 R.id.btnShowPastResults -> {
