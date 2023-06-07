@@ -35,5 +35,33 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:textSize="18sp" />
+    <RadioGroup
+        android:id="@+id/radioGroupUnits"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioButtonOhms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ohmy (Ω)"
+         />
+
+        <RadioButton
+            android:id="@+id/radioButtonKiloohms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kiloohmy (kΩ)"
+         />
+
+        <RadioButton
+            android:id="@+id/radioButtonMegaohms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Megaohmy (MΩ)"
+         />
+
+    </RadioGroup>
 
 </LinearLayout>

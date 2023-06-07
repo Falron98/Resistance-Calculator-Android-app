@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
                 }
                 R.id.btnCalculateParallelAndSeries -> {
                     // Start resistance calculate parallel and series
-                    val intent = Intent(this, ResistanceCalculatorActivity::class.java)
+                    val intent = Intent(this, ResistanceCalculatorParallelAndSeriesActivity::class.java)
                     startActivity(intent)
                 }
             }

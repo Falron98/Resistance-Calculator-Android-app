@@ -41,7 +41,7 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".ResistanceCalculatorActivity"
+            android:name=".ResistanceCalculatorParallelAndSeriesActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
     </application>
