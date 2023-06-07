@@ -11,11 +11,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Resistor_calculator"
         tools:targetApi="31">
-
+        <activity
+            android:name=".CalculateResistanceActivity"
+            android:exported="false"
+            android:parentActivityName=".ChooseStripesActivity" />
         <activity
             android:name=".StartActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,22 +27,20 @@
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:parentActivityName=".MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".PastResultsActivity"
-            android:parentActivityName=".MainActivity"
-
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".ResistanceCalculatorActivity"
-            android:parentActivityName=".MainActivity"
-            android:exported="false" />
+            android:name=".ChooseStripesActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
-            android:exported="false">
-        </activity>
-
+            android:exported="false"
+            />
     </application>
 
 </manifest>
