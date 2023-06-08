@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Wprowadź wartości rezystorów oddzielone przecinkami:"
+        android:text="@string/EnterValue"
         android:textSize="18sp" />
 
     <EditText
@@ -21,13 +21,13 @@
         android:id="@+id/buttonCalculateSeries"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Oblicz (szereg)" />
+        android:text="@string/CalculateSeries" />
 
     <Button
         android:id="@+id/buttonCalculateParallel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Oblicz (równoległe)" />
+        android:text="@string/CalculateParallel" />
 
     <TextView
         android:id="@+id/textViewResult"
@@ -45,21 +45,21 @@
             android:id="@+id/radioButtonOhms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ohmy (Ω)"
+            android:text="@string/Ohms"
          />
 
         <RadioButton
             android:id="@+id/radioButtonKiloohms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Kiloohmy (kΩ)"
+            android:text="@string/Kiloohms"
          />
 
         <RadioButton
             android:id="@+id/radioButtonMegaohms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Megaohmy (MΩ)"
+            android:text="@string/Megaohms"
          />
 
     </RadioGroup>

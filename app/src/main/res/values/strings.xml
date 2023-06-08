@@ -1,11 +1,29 @@
 <resources>
-    <string name="btn_calculate_resistance">Calculate Resistance</string>
-    <string name="btn_show_past_results">Past Results</string>
-    <string name="btn_settings">Settings</string>
+
+    <!-- General -->
     <string name="app_name">Resistor calculator</string>
-    <string name="dark_mode">Dark mode</string>
     <string name="calculate_resistance">Calculate Resistance</string>
     <string name="submit">Submit</string>
 
+    <!-- activity_main.xml -->
+    <string name="CalcParallelAndSeries">Calculate Parallel And Series</string>
+    <string name="btn_calculate_resistance">Calculate Resistance</string>
+    <string name="btn_show_past_results">Past Results</string>
+    <string name="btn_settings">Settings</string>
+    <string name="dark_mode">Dark mode</string>
+
+    <!-- activity_resistance_calculator_parallel_series.xml -->
+    <string name="EnterValue">Enter the resistor values separated by commas:</string>
+    <string name="CalculateSeries">Calculate (series)</string>
+    <string name="CalculateParallel">Calculate (parallel)</string>
+    <string name="Ohms">Ohms (Ω)</string>
+    <string name="Kiloohms">Kiloohms (kΩ)</string>
+    <string name="Megaohms">Megaohms (MΩ)</string>
+
+    <!-- activity_calculate_resistance.xml -->
+    <string name="ResistanceVal">Resistance Value:</string>
+    <string name="Unknown">Unknown</string>
+    <string name="ToleranceVal">Tolerance Value</string>
+    <string name="TempCoefficient">Temperature Coefficient:</string>
 
 </resources>
