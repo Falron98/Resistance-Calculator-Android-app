@@ -68,7 +68,7 @@ class ResistanceCalculatorParallelAndSeriesActivity : AppCompatActivity() {
         val calculator = ResistorCalculator()
         val seriesResistance = calculator.calculateSeriesResistance(resistors)
         val formattedResistance = formatResistanceValue(seriesResistance)
-        textViewResult.text = "Rezystancja dla połączenia szeregowego: $formattedResistance"
+        textViewResult.text = getString(R.string.ResultSeries) + " " + formattedResistance
     }
 
     // Obliczanie rezystancji dla połączenia równoległego
@@ -77,7 +77,7 @@ class ResistanceCalculatorParallelAndSeriesActivity : AppCompatActivity() {
         val calculator = ResistorCalculator()
         val parallelResistance = calculator.calculateParallelResistance(resistors)
         val formattedResistance = formatResistanceValue(parallelResistance)
-        textViewResult.text = "Rezystancja dla połączenia równoległego: $formattedResistance"
+        textViewResult.text = getString(R.string.ResultParallel) + " " + formattedResistance
     }
 
     // Formatowanie wartości rezystancji na podstawie wybranej jednostki

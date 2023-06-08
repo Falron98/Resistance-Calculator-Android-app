@@ -20,6 +20,10 @@
     <string name="Kiloohms">Kiloohms (kΩ)</string>
     <string name="Megaohms">Megaohms (MΩ)</string>
 
+    <!-- ResistanceCalculatorParallelAndSeriesActivity.kt -->
+    <string name="ResultSeries">Resistance for series connection:</string>
+    <string name="ResultParallel">Resistance for parallel connection:</string>
+
     <!-- activity_calculate_resistance.xml -->
     <string name="ResistanceVal">Resistance Value:</string>
     <string name="Unknown">Unknown</string>

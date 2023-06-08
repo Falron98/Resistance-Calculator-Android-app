@@ -7,9 +7,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.SwitchCompat
 
-class MainActivity : AppCompatActivity(), View.OnClickListener{
+class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var btnCalculateResistance: Button
     private lateinit var btnShowPastResults: Button
@@ -32,34 +31,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         btnSettings.setOnClickListener(this)
         btnCalculateParallelAndSeries.setOnClickListener(this)
 
-        // Initialize night mode switch
-        val switch = findViewById<SwitchCompat>(R.id.switch1)
-
         // Get night mode settings from SharedPreferences
         val sharedPreferences = getSharedPreferences("DarkMode", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
         val nightMode = sharedPreferences.getBoolean("night", false)
 
-        // Set switch state and night mode based on settings
-        if (nightMode) {
-            switch.isChecked = true
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        }
-
-        // Listen for switch state changes
-        switch.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (!isChecked) {
-                // Day mode
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                editor.putBoolean("night", false)
-                editor.apply()
-            } else {
-                // Night mode
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                editor.putBoolean("night", true)
-                editor.apply()
-            }
-        }
+        // Set night mode based on settings
+        updateNightMode(nightMode)
     }
 
     override fun onClick(view: View?) {
@@ -86,6 +63,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
                     startActivity(intent)
                 }
             }
+        }
+    }
+
+    private fun updateNightMode(nightModeEnabled: Boolean) {
+        if (nightModeEnabled) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
 }
