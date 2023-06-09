@@ -3,7 +3,12 @@
     <!-- General -->
     <string name="app_name">Resistor calculator</string>
     <string name="calculate_resistance">Calculate Resistance</string>
+    <string name="loadButton">Wczytaj konfiguracje</string>
+    <string name="saveButton">Zapisz konfiguracje</string>
     <string name="submit">Submit</string>
+    <string name="configurations">Wpisz nazwę konfiguracji</string>
+    <string name="deleteButton">Usuń konfiguracje</string>
+
 
     <!-- activity_main.xml -->
     <string name="CalcParallelAndSeries">Calculate Parallel And Series</string>
@@ -19,6 +24,10 @@
     <string name="Ohms">Ohms (Ω)</string>
     <string name="Kiloohms">Kiloohms (kΩ)</string>
     <string name="Megaohms">Megaohms (MΩ)</string>
+
+    <!-- ResistanceCalculatorParallelAndSeriesActivity.kt -->
+    <string name="ResultSeries">Resistance for series connection:</string>
+    <string name="ResultParallel">Resistance for parallel connection:</string>
 
     <!-- activity_calculate_resistance.xml -->
     <string name="ResistanceVal">Resistance Value:</string>

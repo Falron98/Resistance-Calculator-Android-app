@@ -14,4 +14,17 @@
     <color name="dark_gray">#A9A9A9</color>
     <color name="platinum">#E5E4E2</color>
     <color name="light_gray">#D3D3D3</color>
+
+    <color name="buttons_dark">#6B9AC3</color>
+
+    <color name="dark_bg">#121212</color>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryVariant">#303F9F</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorSecondary">#FF4081</color>
+    <color name="colorSecondaryVariant">#F50057</color>
+    <color name="colorOnSecondary">#000000</color>
+    <color name="indigo_500">#3F51B5</color>
+    <color name="indigo_700">#303F9F</color>
 </resources>
