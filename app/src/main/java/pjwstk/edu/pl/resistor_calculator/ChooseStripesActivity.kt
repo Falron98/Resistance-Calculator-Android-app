@@ -21,52 +21,21 @@ class ChooseStripesActivity : AppCompatActivity() {
     private lateinit var configurationNameEditText: EditText
 
     private val normalColorOptions = arrayOf(
-        "None",
-        "Black",
-        "Brown",
-        "Red",
-        "Orange",
-        "Yellow",
-        "Green",
-        "Blue",
-        "Violet",
-        "Gray",
-        "White"
+        "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray", "White"
     )
 
     private val multiplierColorOptions = arrayOf(
-        "None",
-        "Black",
-        "Brown",
-        "Red",
-        "Orange",
-        "Yellow",
-        "Green",
-        "Blue",
-        "Violet",
-        "Gray",
-        "White",
-        "Silver",
-        "Gold"
+        "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray", "White", "Silver", "Gold"
     )
 
     private val toleranceColorOptions = arrayOf(
-        "None",
-        "Brown",
-        "Red",
-        "Orange",
-        "Yellow",
-        "Green",
-        "Blue",
-        "Violet",
-        "Gray",
-        "Silver",
-        "Gold"
+        "None", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray", "Silver", "Gold"
     )
 
     private val temperatureColorOptions = arrayOf(
         "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray"
     )
+
 
     private val savedConfigurations = mutableListOf<Pair<String, List<String>>>()
 
