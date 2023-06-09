@@ -154,14 +154,16 @@ class ChooseStripesActivity : AppCompatActivity() {
 
         loadButton.setOnClickListener {
             val selectedConfiguration = configurationsSpinner.selectedItemPosition
-            if (selectedConfiguration != AdapterView.INVALID_POSITION) {
-                val selectedStripes = savedConfigurations[selectedConfiguration].second
-                setStripeColors(selectedStripes)
-            }
-        }
+            val selectedStripes = savedConfigurations[selectedConfiguration].second
+            val numSelectedStripes = selectedStripes.size
+            val numStripeSpinners = stripeSpinnersContainer.childCount
 
-        loadConfigurationsFromFile()
-    }
+            if (selectedConfiguration != AdapterView.INVALID_POSITION && numSelectedStripes == numStripeSpinners) {
+                setStripeColors(selectedStripes)
+            } else {
+                Toast.makeText(this, "Invalid configuration", Toast.LENGTH_SHORT).show()
+            }
+        }}
 
     private fun checkSubmitButtonState() {
         var isSubmitButtonEnabled = true
