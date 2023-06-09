@@ -153,15 +153,22 @@ class ChooseStripesActivity : AppCompatActivity() {
         }
 
         loadButton.setOnClickListener {
-            val selectedConfiguration = configurationsSpinner.selectedItemPosition
-            val selectedStripes = savedConfigurations[selectedConfiguration].second
-            val numSelectedStripes = selectedStripes.size
-            val numStripeSpinners = stripeSpinnersContainer.childCount
+            val selectedConfigurationIndex = configurationsSpinner.selectedItemPosition
+            if (selectedConfigurationIndex != AdapterView.INVALID_POSITION) {
+                val selectedStripes = savedConfigurations[selectedConfigurationIndex].second
+                val numSelectedStripes = selectedStripes.size
+                val numStripeSpinners = stripeSpinnersContainer.childCount
 
-            if (selectedConfiguration != AdapterView.INVALID_POSITION && numSelectedStripes == numStripeSpinners) {
-                setStripeColors(selectedStripes)
-            } else {
-                Toast.makeText(this, "Invalid configuration", Toast.LENGTH_SHORT).show()
+                val numExpectedStripes = when (numStripeSpinners) {
+                    5 -> numStripeSpinners + 1 // Dodaj 1 dla paska temperaturowego
+                    else -> numStripeSpinners
+                }
+
+                if (numSelectedStripes == numExpectedStripes) {
+                    setStripeColors(selectedStripes)
+                } else {
+                    Toast.makeText(this, "Invalid configuration", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
