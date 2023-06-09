@@ -163,7 +163,10 @@ class ChooseStripesActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Invalid configuration", Toast.LENGTH_SHORT).show()
             }
-        }}
+        }
+
+        loadConfigurationsFromFile()
+    }
 
     private fun checkSubmitButtonState() {
         var isSubmitButtonEnabled = true
