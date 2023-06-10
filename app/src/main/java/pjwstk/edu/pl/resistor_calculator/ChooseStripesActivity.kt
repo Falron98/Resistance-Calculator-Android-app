@@ -21,7 +21,7 @@ class ChooseStripesActivity : AppCompatActivity() {
     private lateinit var configurationNameEditText: EditText
 
     private val normalColorOptions = arrayOf(
-        "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray", "White", "Silver", "Gold"
+        "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray", "White"
     )
 
     private val multiplierColorOptions = arrayOf(
@@ -29,11 +29,11 @@ class ChooseStripesActivity : AppCompatActivity() {
     )
 
     private val toleranceColorOptions = arrayOf(
-        "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray", "White", "Silver", "Gold"
+        "None", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray", "Silver", "Gold"
     )
 
     private val temperatureColorOptions = arrayOf(
-        "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray", "White", "Silver", "Gold"
+        "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray"
     )
 
 
@@ -200,33 +200,33 @@ class ChooseStripesActivity : AppCompatActivity() {
         return when (numStripes) {
             3 -> {
                 when (position) {
-                    1, 2 -> normalColorOptions.filterNot { it == "Silver" || it == "Gold" }.toTypedArray()
+                    1, 2 -> normalColorOptions
                     3 -> multiplierColorOptions
                     else -> emptyArray()
                 }
             }
             4 -> {
                 when (position) {
-                    1, 2 -> normalColorOptions.filterNot { it == "Silver" || it == "Gold" }.toTypedArray()
+                    1, 2 -> normalColorOptions
                     3 -> multiplierColorOptions
-                    4 -> toleranceColorOptions.filterNot { it == "Black" || it == "White" }.toTypedArray()
+                    4 -> toleranceColorOptions
                     else -> emptyArray()
                 }
             }
             5 -> {
                 when (position) {
-                    1, 2, 3 -> normalColorOptions.filterNot { it == "Silver" || it == "Gold" }.toTypedArray()
+                    1, 2, 3 -> normalColorOptions
                     4 -> multiplierColorOptions
-                    5 -> toleranceColorOptions.filterNot { it == "Black" || it == "White" }.toTypedArray()
+                    5 -> toleranceColorOptions
                     else -> emptyArray()
                 }
             }
             6 -> {
                 when (position) {
-                    1, 2, 3 -> normalColorOptions.filterNot { it == "Silver" || it == "Gold" }.toTypedArray()
+                    1, 2, 3 -> normalColorOptions
                     4 -> multiplierColorOptions
-                    5 -> toleranceColorOptions.filterNot { it == "Black" || it == "White" }.toTypedArray()
-                    6 -> temperatureColorOptions.filterNot { it == "White" || it == "Silver" || it == "Gold"}.toTypedArray()
+                    5 -> toleranceColorOptions
+                    6 -> temperatureColorOptions
                     else -> emptyArray()
                 }
             }
