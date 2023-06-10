@@ -250,16 +250,19 @@ class ChooseStripesActivity : AppCompatActivity() {
         // Ustaw kolory dla poszczególnych spinnerów
         for (i in 0 until stripeSpinnersContainer.childCount) {
             val stripeSpinner = stripeSpinnersContainer.getChildAt(i) as Spinner
-            val colorIndex = getColorIndex(colors[i])
+            val colorIndex = getColorIndex(colors[i], i + 1)
             stripeSpinner.setSelection(colorIndex)
         }
     }
 
-    private fun getColorIndex(color: String): Int {
-        // Pobierz indeks wybranego koloru
-        val colorOptions =
-            normalColorOptions + multiplierColorOptions + toleranceColorOptions + temperatureColorOptions
-        return colorOptions.indexOf(color)
+    private fun getColorIndex(color: String, position: Int): Int {
+        return when (position) {
+            1, 2, 3 -> normalColorOptions.indexOf(color)
+            4 -> multiplierColorOptions.indexOf(color)
+            5 -> toleranceColorOptions.indexOf(color)
+            6 -> temperatureColorOptions.indexOf(color)
+            else -> -1
+        }
     }
 
     private fun saveConfigurationsToFile() {
