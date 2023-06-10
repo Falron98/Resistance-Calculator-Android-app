@@ -21,7 +21,7 @@ class ChooseStripesActivity : AppCompatActivity() {
     private lateinit var configurationNameEditText: EditText
 
     private val normalColorOptions = arrayOf(
-        "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray", "White"
+        "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray", "White", "Silver", "Gold"
     )
 
     private val multiplierColorOptions = arrayOf(
@@ -29,15 +29,15 @@ class ChooseStripesActivity : AppCompatActivity() {
     )
 
     private val toleranceColorOptions = arrayOf(
-        "None", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray", "Silver", "Gold"
+        "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray", "White", "Silver", "Gold"
     )
 
     private val temperatureColorOptions = arrayOf(
-        "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray"
+        "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray", "White", "Silver", "Gold"
     )
 
 
-    private val savedConfigurations = mutableListOf<Pair<String, List<String>>>()
+    private val savedConfigurations = mutableListOf<Pair<String, List<Int>>>()
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,26 +114,26 @@ class ChooseStripesActivity : AppCompatActivity() {
         }
 
         submitButton.setOnClickListener {
-            val selectedStripes = mutableListOf<String>()
+            val selectedStripes = mutableListOf<Int>()
 
             for (i in 0 until stripeSpinnersContainer.childCount) {
                 val stripeSpinner = stripeSpinnersContainer.getChildAt(i) as Spinner
-                val selectedColor = stripeSpinner.selectedItem.toString()
-                selectedStripes.add(selectedColor)
+                val selectedColorIndex = stripeSpinner.selectedItemPosition
+                selectedStripes.add(selectedColorIndex)
             }
 
             val intent = Intent(this, CalculateResistanceActivity::class.java)
-            intent.putStringArrayListExtra("stripes", ArrayList(selectedStripes))
+            intent.putIntegerArrayListExtra("stripes", ArrayList(selectedStripes))
             startActivity(intent)
         }
 
         saveButton.setOnClickListener {
-            val selectedStripes = mutableListOf<String>()
+            val selectedStripes = mutableListOf<Int>()
 
             for (i in 0 until stripeSpinnersContainer.childCount) {
                 val stripeSpinner = stripeSpinnersContainer.getChildAt(i) as Spinner
-                val selectedColor = stripeSpinner.selectedItem.toString()
-                selectedStripes.add(selectedColor)
+                val selectedColorIndex = stripeSpinner.selectedItemPosition
+                selectedStripes.add(selectedColorIndex)
             }
 
             val configurationName = configurationNameEditText.text.toString()
@@ -160,7 +160,7 @@ class ChooseStripesActivity : AppCompatActivity() {
                 val numStripeSpinners = stripeSpinnersContainer.childCount
 
                 val numExpectedStripes = when (numStripeSpinners) {
-                    5 -> numStripeSpinners + 1 // Dodaj 1 dla paska temperaturowego
+                    6 -> numStripeSpinners
                     else -> numStripeSpinners
                 }
 
@@ -180,8 +180,8 @@ class ChooseStripesActivity : AppCompatActivity() {
 
         for (i in 0 until stripeSpinnersContainer.childCount) {
             val stripeSpinner = stripeSpinnersContainer.getChildAt(i) as Spinner
-            val selectedColor = stripeSpinner.selectedItem.toString()
-            if (selectedColor == "None") {
+            val selectedColorIndex = stripeSpinner.selectedItemPosition
+            if (selectedColorIndex == 0) {
                 isSubmitButtonEnabled = false
                 break
             }
@@ -200,33 +200,33 @@ class ChooseStripesActivity : AppCompatActivity() {
         return when (numStripes) {
             3 -> {
                 when (position) {
-                    1, 2 -> normalColorOptions
+                    1, 2 -> normalColorOptions.filterNot { it == "Silver" || it == "Gold" }.toTypedArray()
                     3 -> multiplierColorOptions
                     else -> emptyArray()
                 }
             }
             4 -> {
                 when (position) {
-                    1, 2 -> normalColorOptions
+                    1, 2 -> normalColorOptions.filterNot { it == "Silver" || it == "Gold" }.toTypedArray()
                     3 -> multiplierColorOptions
-                    4 -> toleranceColorOptions
+                    4 -> toleranceColorOptions.filterNot { it == "Black" || it == "White" }.toTypedArray()
                     else -> emptyArray()
                 }
             }
             5 -> {
                 when (position) {
-                    1, 2, 3 -> normalColorOptions
+                    1, 2, 3 -> normalColorOptions.filterNot { it == "Silver" || it == "Gold" }.toTypedArray()
                     4 -> multiplierColorOptions
-                    5 -> toleranceColorOptions
+                    5 -> toleranceColorOptions.filterNot { it == "Black" || it == "White" }.toTypedArray()
                     else -> emptyArray()
                 }
             }
             6 -> {
                 when (position) {
-                    1, 2, 3 -> normalColorOptions
+                    1, 2, 3 -> normalColorOptions.filterNot { it == "Silver" || it == "Gold" }.toTypedArray()
                     4 -> multiplierColorOptions
-                    5 -> toleranceColorOptions
-                    6 -> temperatureColorOptions
+                    5 -> toleranceColorOptions.filterNot { it == "Black" || it == "White" }.toTypedArray()
+                    6 -> temperatureColorOptions.filterNot { it == "White" || it == "Silver" || it == "Gold"}.toTypedArray()
                     else -> emptyArray()
                 }
             }
@@ -246,11 +246,11 @@ class ChooseStripesActivity : AppCompatActivity() {
         configurationsSpinner.adapter = adapter
     }
 
-    private fun setStripeColors(colors: List<String>) {
+    private fun setStripeColors(colors: List<Int>) {
         // Ustaw kolory dla poszczególnych spinnerów
         for (i in 0 until stripeSpinnersContainer.childCount) {
             val stripeSpinner = stripeSpinnersContainer.getChildAt(i) as Spinner
-            val colorIndex = getColorIndex(colors[i], i + 1)
+            val colorIndex = colors[i]
             stripeSpinner.setSelection(colorIndex)
         }
     }
@@ -261,7 +261,7 @@ class ChooseStripesActivity : AppCompatActivity() {
             4 -> multiplierColorOptions.indexOf(color)
             5 -> toleranceColorOptions.indexOf(color)
             6 -> temperatureColorOptions.indexOf(color)
-            else -> -1
+            else -> 0
         }
     }
 
@@ -286,7 +286,7 @@ class ChooseStripesActivity : AppCompatActivity() {
             val objectInputStream = ObjectInputStream(fileInputStream)
 
             val configurations =
-                objectInputStream.readObject() as MutableList<Pair<String, List<String>>>
+                objectInputStream.readObject() as MutableList<Pair<String, List<Int>>>
 
             // Wyczyść bieżące konfiguracje i dodaj wczytane
             savedConfigurations.clear()
@@ -294,9 +294,8 @@ class ChooseStripesActivity : AppCompatActivity() {
 
             objectInputStream.close()
             fileInputStream.close()
-
-            // Zaktualizuj spinner konfiguracji
-            updateConfigurationsSpinner()
         }
+
+        updateConfigurationsSpinner()
     }
 }
