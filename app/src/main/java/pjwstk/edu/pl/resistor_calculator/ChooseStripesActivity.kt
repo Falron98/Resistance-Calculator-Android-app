@@ -18,50 +18,22 @@ class ChooseStripesActivity : AppCompatActivity() {
     private lateinit var configurationsSpinner: Spinner
     private lateinit var configurationNameEditText: EditText
     private val normalColorOptions = arrayOf(
-        "None",
-        "Black",
-        "Brown",
-        "Red",
-        "Orange",
-        "Yellow",
-        "Green",
-        "Blue",
-        "Violet",
-        "Gray",
-        "White"
+        "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray", "White"
     )
+
     private val multiplierColorOptions = arrayOf(
-        "None",
-        "Black",
-        "Brown",
-        "Red",
-        "Orange",
-        "Yellow",
-        "Green",
-        "Blue",
-        "Violet",
-        "Gray",
-        "White",
-        "Silver",
-        "Gold"
+        "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray", "White", "Silver", "Gold"
     )
+
     private val toleranceColorOptions = arrayOf(
-        "None",
-        "Brown",
-        "Red",
-        "Orange",
-        "Yellow",
-        "Green",
-        "Blue",
-        "Violet",
-        "Gray",
-        "Silver",
-        "Gold"
+        "None", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray", "Silver", "Gold"
     )
+
     private val temperatureColorOptions = arrayOf(
         "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray"
     )
-    private val savedConfigurations = mutableListOf<Pair<String, List<String>>>()
+
+    private val savedConfigurations = mutableListOf<Pair<String, List<Int>>>()
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -140,17 +112,20 @@ class ChooseStripesActivity : AppCompatActivity() {
             startActivity(intent)
         }
         saveButton.setOnClickListener {
-            val selectedStripes = mutableListOf<String>()
+            val selectedStripes = mutableListOf<Int>()
+
             for (i in 0 until stripeSpinnersContainer.childCount) {
                 val stripeSpinner = stripeSpinnersContainer.getChildAt(i) as Spinner
-                val selectedColor = stripeSpinner.selectedItem.toString()
-                selectedStripes.add(selectedColor)
+                val selectedColorIndex = stripeSpinner.selectedItemPosition
+                selectedStripes.add(selectedColorIndex)
             }
+
             val configurationName = configurationNameEditText.text.toString()
             savedConfigurations.add(Pair(configurationName, selectedStripes.toList()))
             updateConfigurationsSpinner()
             saveConfigurationsToFile()
         }
+
         deleteButton.setOnClickListener {
             val selectedConfigurationIndex = configurationsSpinner.selectedItemPosition
             if (selectedConfigurationIndex != AdapterView.INVALID_POSITION) {
@@ -160,16 +135,19 @@ class ChooseStripesActivity : AppCompatActivity() {
                 Toast.makeText(this, "Configuration deleted", Toast.LENGTH_SHORT).show()
             }
         }
+
         loadButton.setOnClickListener {
             val selectedConfigurationIndex = configurationsSpinner.selectedItemPosition
             if (selectedConfigurationIndex != AdapterView.INVALID_POSITION) {
                 val selectedStripes = savedConfigurations[selectedConfigurationIndex].second
                 val numSelectedStripes = selectedStripes.size
                 val numStripeSpinners = stripeSpinnersContainer.childCount
+
                 val numExpectedStripes = when (numStripeSpinners) {
-                    5 -> numStripeSpinners + 1 // Dodaj 1 dla paska temperaturowego
+                    6 -> numStripeSpinners
                     else -> numStripeSpinners
                 }
+
                 if (numSelectedStripes == numExpectedStripes) {
                     setStripeColors(selectedStripes)
                 } else {
@@ -177,6 +155,7 @@ class ChooseStripesActivity : AppCompatActivity() {
                 }
             }
         }
+
         loadConfigurationsFromFile()
     }
 
@@ -246,22 +225,21 @@ class ChooseStripesActivity : AppCompatActivity() {
         configurationsSpinner.adapter = adapter
     }
 
-    private fun setStripeColors(colors: List<String>) {
+    private fun setStripeColors(colors: List<Int>) {
         // Ustaw kolory dla poszczególnych spinnerów
         for (i in 0 until stripeSpinnersContainer.childCount) {
             val stripeSpinner = stripeSpinnersContainer.getChildAt(i) as Spinner
-            val colorIndex = getColorIndex(colors[i], i + 1)
+            val colorIndex = colors[i]
             stripeSpinner.setSelection(colorIndex)
         }
     }
-
     private fun getColorIndex(color: String, position: Int): Int {
         return when (position) {
             1, 2, 3 -> normalColorOptions.indexOf(color)
             4 -> multiplierColorOptions.indexOf(color)
             5 -> toleranceColorOptions.indexOf(color)
             6 -> temperatureColorOptions.indexOf(color)
-            else -> -1
+            else -> 0
         }
     }
 
@@ -270,7 +248,9 @@ class ChooseStripesActivity : AppCompatActivity() {
         val file = File(applicationContext.filesDir, "configurations.txt")
         val fileOutputStream = FileOutputStream(file)
         val objectOutputStream = ObjectOutputStream(fileOutputStream)
+
         objectOutputStream.writeObject(savedConfigurations)
+
         objectOutputStream.close()
         fileOutputStream.close()
     }
@@ -278,18 +258,22 @@ class ChooseStripesActivity : AppCompatActivity() {
     private fun loadConfigurationsFromFile() {
         // Wczytaj konfiguracje z pliku
         val file = File(applicationContext.filesDir, "configurations.txt")
+
         if (file.exists()) {
             val fileInputStream = FileInputStream(file)
             val objectInputStream = ObjectInputStream(fileInputStream)
+
             val configurations =
-                objectInputStream.readObject() as MutableList<Pair<String, List<String>>>
+                objectInputStream.readObject() as MutableList<Pair<String, List<Int>>>
+
             // Wyczyść bieżące konfiguracje i dodaj wczytane
             savedConfigurations.clear()
             savedConfigurations.addAll(configurations)
+
             objectInputStream.close()
             fileInputStream.close()
-            // Zaktualizuj spinner konfiguracji
-            updateConfigurationsSpinner()
         }
+
+        updateConfigurationsSpinner()
     }
 }
