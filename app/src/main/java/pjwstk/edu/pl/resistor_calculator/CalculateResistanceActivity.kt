@@ -1,7 +1,6 @@
 package pjwstk.edu.pl.resistor_calculator
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -150,6 +149,8 @@ class CalculateResistanceActivity : AppCompatActivity() {
             "Purple" -> 10000000
             "Gray" -> 100000000
             "White" -> 1000000000
+            "Gold" -> 1/10
+            "Silver" -> 1/100
             else -> null
         }
     }

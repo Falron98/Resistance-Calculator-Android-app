@@ -3,11 +3,11 @@
     <!-- General -->
     <string name="app_name">Resistor calculator</string>
     <string name="calculate_resistance">Calculate Resistance</string>
-    <string name="loadButton">Wczytaj konfiguracje</string>
-    <string name="saveButton">Zapisz konfiguracje</string>
+    <string name="loadButton">Load configuration</string>
+    <string name="saveButton">Save configuration</string>
     <string name="submit">Submit</string>
-    <string name="configurations">Wpisz nazwę konfiguracji</string>
-    <string name="deleteButton">Usuń konfiguracje</string>
+    <string name="configurations">Enter a configuration name</string>
+    <string name="deleteButton">Delete configuration</string>
 
 
     <!-- activity_main.xml -->

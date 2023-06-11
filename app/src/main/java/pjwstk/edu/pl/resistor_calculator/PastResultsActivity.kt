@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import java.io.File
 import java.io.FileInputStream
 import java.io.ObjectInputStream
-import kotlin.math.pow
 
 class PastResultsActivity : AppCompatActivity() {
     private lateinit var configurationSpinner1: Spinner
@@ -20,8 +19,8 @@ class PastResultsActivity : AppCompatActivity() {
     private lateinit var resultTextView1: TextView
     private lateinit var resultTextView2: TextView
 
-    private val savedConfigurations = mutableListOf<Pair<String, List<String>>>()
-    private val resultData = mutableMapOf<Pair<String, List<String>>, String>()
+    private val savedConfigurations = mutableListOf<Pair<String, List<Int>>>()
+    private val resultData = mutableMapOf<Pair<String, List<Int>>, String>()
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,7 +99,7 @@ class PastResultsActivity : AppCompatActivity() {
     }
 
     private fun displayResult(
-        configuration: Pair<String, List<String>>,
+        configuration: Pair<String, List<Int>>,
         result: String,
         textView: TextView
     ) {
@@ -111,107 +110,266 @@ class PastResultsActivity : AppCompatActivity() {
 
         val resultText = buildString {
             append("Config name: $configurationName\n")
-            append("Stripes colors: ${selectedStripes.joinToString(", ")}\n")
+            append(
+                "Stripes colors: ${
+                    selectedStripes.map { getColorName(it) }.joinToString(", ")
+                }\n"
+            )
             append("Result: $resistanceResult")
         }
 
         textView.text = resultText
     }
 
-    private fun calculateResistance(selectedStripes: List<String>): String {
-        val colorsToValues = mapOf(
-            "Black" to 0,
-            "Brown" to 1,
-            "Red" to 2,
-            "Orange" to 3,
-            "Yellow" to 4,
-            "Green" to 5,
-            "Blue" to 6,
-            "Purple" to 7,
-            "Gray" to 8,
-            "White" to 9
+    private fun getColorName(color: Int): String {
+        val colorsToNames = mapOf(
+            0 to "None",
+            1 to "Black",
+            2 to "Brown",
+            3 to "Red",
+            4 to "Orange",
+            5 to "Yellow",
+            6 to "Green",
+            7 to "Blue",
+            8 to "Purple",
+            9 to "Gray",
+            10 to "White",
+            11 to "Silver",
+            12 to "Gold"
         )
 
-        var resistance = 0L
-        var multiplier = 1L
+        return colorsToNames[color] ?: ""
+    }
 
-        // Pobierz wartość rezystancji z pierwszych dwóch kolorów
-        for (i in 0..1) {
-            val color = selectedStripes[i]
-            val value = colorsToValues[color]
-            resistance = resistance * 10 + value!!
-        }
+    private fun calculateResistance(selectedStripes: List<Int>): String {
+        val colorsToValues = mapOf(
+            "None" to 0,
+            "Black" to 1,
+            "Brown" to 2,
+            "Red" to 3,
+            "Orange" to 4,
+            "Yellow" to 5,
+            "Green" to 6,
+            "Blue" to 7,
+            "Purple" to 8,
+            "Gray" to 9,
+            "White" to 10,
+            "Silver" to 11,
+            "Gold" to 12
+        )
 
-        // Pobierz mnożnik z trzeciego koloru
-        val multiplierColor = selectedStripes[2]
-        val multiplierValue = colorsToValues[multiplierColor]
-        multiplier = 10.0.pow(multiplierValue!!.toDouble()).toLong()
 
-        // Oblicz wartość rezystancji
-        val resistanceValue = resistance * multiplier
+        if (selectedStripes.size == 3) {
+            // Konfiguracja z 3 polami: początkowe liczby, mnożnik
+            val firstNumber = (colorsToValues.values.elementAt(selectedStripes[0]) - 1).toDouble()
+            val secondNumber = (colorsToValues.values.elementAt(selectedStripes[1]) - 1).toDouble()
+            val multiplierColor = selectedStripes[2]
+            val multiplierValues = mapOf(
+                "Black" to 1.0,
+                "Brown" to 10.0,
+                "Red" to 100.0,
+                "Orange" to 1000.0,
+                "Yellow" to 10000.0,
+                "Green" to 100000.0,
+                "Blue" to 1000000.0,
+                "Purple" to 10000000.0,
+                "Gray" to 100000000.0,
+                "White" to 1000000000.0,
+                "Gold" to 0.1,
+                "Silver" to 0.01
+            )
+            val multiplierValue = multiplierValues[getColorName(multiplierColor)] ?: 0.0
 
-        // Jeśli istnieje czwarty kolor, to jest to tolerancja
-        if (selectedStripes.size > 3) {
+            val resistanceValue = (firstNumber * 10 + secondNumber * 1) * multiplierValue
+
+            val formattedResistance = when {
+                resistanceValue >= 1e9 -> "${(resistanceValue / 1e9)} GΩ"
+                resistanceValue >= 1e6 -> "${(resistanceValue / 1e6)} MΩ"
+                else -> "$resistanceValue Ω"
+            }
+
+            return "Resistance: $formattedResistance, Tolerance: ±20%"
+        } else if (selectedStripes.size == 4) {
+            // Konfiguracja z 4 polami: początkowe liczby, mnożnik, tolerancja
+            val firstNumber = colorsToValues.values.elementAt(selectedStripes[0]) - 1
+            val secondNumber = colorsToValues.values.elementAt(selectedStripes[1]) - 1
+            val multiplierColor = selectedStripes[2]
             val toleranceColor = selectedStripes[3]
             val toleranceValues = mapOf(
+                "None" to "N/a",
+                "Black" to "N/a",
                 "Brown" to "±1%",
                 "Red" to "±2%",
-                "Orange" to "±3%",
-                "Yellow" to "±4%",
+                "Orange" to "N/a",
+                "Yellow" to "N/a",
                 "Green" to "±0.5%",
                 "Blue" to "±0.25%",
-                "Purple" to "±0.10%",
+                "Purple" to "±0.1%",
                 "Gray" to "±0.05%",
+                "White" to "N/a",
+                "Silver" to "±10%",
                 "Gold" to "±5%",
-                "Silver" to "±10%"
             )
-            val toleranceValue = toleranceValues[toleranceColor]
+            val multiplierValues = mapOf(
+                "Black" to 1.0,
+                "Brown" to 10.0,
+                "Red" to 100.0,
+                "Orange" to 1000.0,
+                "Yellow" to 10000.0,
+                "Green" to 100000.0,
+                "Blue" to 1000000.0,
+                "Purple" to 10000000.0,
+                "Gray" to 100000000.0,
+                "White" to 1000000000.0,
+                "Gold" to 0.1,
+                "Silver" to 0.01
+            )
+            val multiplierValue = multiplierValues[getColorName(multiplierColor)]?.toDouble() ?: 0.0
 
-            // Jeśli istnieje piąty kolor, to jest to PPM
-            if (selectedStripes.size > 5) {
-                val ppmColor = selectedStripes[5]
-                val ppmValues = mapOf(
-                    "Black" to "250 ppm/°C",
-                    "Brown" to "100 ppm/°C",
-                    "Red" to "50 ppm/°C",
-                    "Orange" to "15 ppm/°C",
-                    "Yellow" to "25 ppm/°C",
-                    "Green" to "20 ppm/°C",
-                    "Blue" to "10 ppm/°C",
-                    "Purple" to "5 ppm/°C",
-                    "Gray" to "1 ppm/°C"
-                )
-                val ppmValue = ppmValues[ppmColor]
-                return "Resistance: $resistanceValue, Tolerance: $toleranceValue, PPM: $ppmValue"
-            } else {
-                return "Resistance: $resistanceValue, Tolerance: $toleranceValue"
+            val toleranceValue = toleranceValues[getColorName(toleranceColor)]
+
+            val resistanceValue = (firstNumber * 10 + secondNumber * 1) * multiplierValue
+
+            val formattedResistance = when {
+                resistanceValue >= 1e9 -> "${(resistanceValue / 1e9).toInt()} GΩ"
+                resistanceValue >= 1e6 -> "${(resistanceValue / 1e6).toInt()} MΩ"
+                else -> "$resistanceValue Ω"
             }
-        } else {
-            return "Resistance: $resistanceValue"
+
+            return "Resistance: $formattedResistance, Tolerance: $toleranceValue"
+
+
+        } else if (selectedStripes.size == 5) {
+            // Konfiguracja z 5 polami: początkowe liczby, mnożnik, tolerancja
+            val firstNumber = colorsToValues.values.elementAt(selectedStripes[0]) - 1
+            val secondNumber = colorsToValues.values.elementAt(selectedStripes[1]) - 1
+            val thirdNumber = colorsToValues.values.elementAt(selectedStripes[2]) - 1
+            val multiplierColor = selectedStripes[3]
+            val toleranceColor = selectedStripes[4]
+            val toleranceValues = mapOf(
+                "None" to "N/a",
+                "Black" to "N/a",
+                "Brown" to "±1%",
+                "Red" to "±2%",
+                "Orange" to "N/a",
+                "Yellow" to "N/a",
+                "Green" to "±0.5%",
+                "Blue" to "±0.25%",
+                "Purple" to "±0.1%",
+                "Gray" to "±0.05%",
+                "White" to "N/a",
+                "Silver" to "±10%",
+                "Gold" to "±5%",
+            )
+            val multiplierValues = mapOf(
+                "Black" to 1.0,
+                "Brown" to 10.0,
+                "Red" to 100.0,
+                "Orange" to 1000.0,
+                "Yellow" to 10000.0,
+                "Green" to 100000.0,
+                "Blue" to 1000000.0,
+                "Purple" to 10000000.0,
+                "Gray" to 100000000.0,
+                "White" to 1000000000.0,
+                "Gold" to 0.1,
+                "Silver" to 0.01
+            )
+            val multiplierValue = multiplierValues[getColorName(multiplierColor)]?.toDouble() ?: 0.0
+            val toleranceValue = toleranceValues[getColorName(toleranceColor)]
+            val resistanceValue =
+                (firstNumber * 100 + secondNumber * 10 + thirdNumber) * multiplierValue
+            val formattedResistance = when {
+                resistanceValue >= 1e9 -> "${(resistanceValue / 1e9).toInt()} GΩ"
+                resistanceValue >= 1e6 -> "${(resistanceValue / 1e6).toInt()} MΩ"
+                else -> "$resistanceValue Ω"
+            }
+
+            return "Resistance: $formattedResistance, Tolerance: $toleranceValue"
+
+        } else if (selectedStripes.size == 6) {
+            // Konfiguracja z 6 polami: początkowe liczby, mnożnik, tolerancja, ppm
+            val firstNumber = colorsToValues.values.elementAt(selectedStripes[0]) - 1
+            val secondNumber = colorsToValues.values.elementAt(selectedStripes[1]) - 1
+            val thirdNumber = colorsToValues.values.elementAt(selectedStripes[2]) - 1
+            val multiplierColor = selectedStripes[3]
+            val multiplierValues = mapOf(
+                "Black" to 1.0,
+                "Brown" to 10.0,
+                "Red" to 100.0,
+                "Orange" to 1000.0,
+                "Yellow" to 10000.0,
+                "Green" to 100000.0,
+                "Blue" to 1000000.0,
+                "Purple" to 10000000.0,
+                "Gray" to 100000000.0,
+                "White" to 1000000000.0,
+                "Gold" to 0.1,
+                "Silver" to 0.01
+            )
+            val multiplierValue = multiplierValues[getColorName(multiplierColor)]?.toDouble() ?: 0.0
+            val toleranceColor = selectedStripes[4]
+            val toleranceValues = mapOf(
+                "None" to "N/a",
+                "Black" to "N/a",
+                "Brown" to "±1%",
+                "Red" to "±2%",
+                "Orange" to "N/a",
+                "Yellow" to "N/a",
+                "Green" to "±0.5%",
+                "Blue" to "±0.25%",
+                "Purple" to "±0.1%",
+                "Gray" to "±0.05%",
+                "White" to "N/a",
+                "Silver" to "±10%",
+                "Gold" to "±5%"
+            )
+            val toleranceValue = toleranceValues[getColorName(toleranceColor)]
+            val ppmColor = selectedStripes[5]
+            val ppmValues = mapOf(
+                "None" to "N/a",
+                "Black" to "250 ppm",
+                "Brown" to "100 ppm",
+                "Red" to "50 ppm",
+                "Orange" to "15 ppm",
+                "Yellow" to "25 ppm",
+                "Green" to "20 ppm",
+                "Blue" to "10 ppm",
+                "Purple" to "5 ppm",
+                "Gray" to "1 ppm",
+                "White" to "N/a",
+                "Silver" to "N/a",
+                "Gold" to "N/a"
+            )
+            val ppmValue = ppmValues[getColorName(ppmColor)]
+
+            val resistanceValue =
+                (firstNumber * 100 + secondNumber * 10 + thirdNumber) * multiplierValue
+            val formattedResistance = when {
+                resistanceValue >= 1e9 -> "${(resistanceValue / 1e9).toInt()} GΩ"
+                resistanceValue >= 1e6 -> "${(resistanceValue / 1e6).toInt()} MΩ"
+                else -> "$resistanceValue Ω"
+            }
+            return "Resistance: $formattedResistance, Tolerance: $toleranceValue, PPM: $ppmValue"
         }
+
+        return "N/a"
     }
 
     private fun loadConfigurationsFromFile(): Boolean {
-        // Wczytaj konfiguracje z pliku
-        val file = File(applicationContext.filesDir, "configurations.txt")
+        val file = File(filesDir, "configurations.txt")
 
         if (file.exists()) {
-            val fileInputStream = FileInputStream(file)
-            val objectInputStream = ObjectInputStream(fileInputStream)
-
-            val configurations =
-                objectInputStream.readObject() as MutableList<Pair<String, List<String>>>
-
-            // Wyczyść bieżące konfiguracje i dodaj wczytane z pliku
-            savedConfigurations.clear()
-            savedConfigurations.addAll(configurations)
-
-            objectInputStream.close()
-            fileInputStream.close()
-
+            FileInputStream(file).use { fileInputStream ->
+                ObjectInputStream(fileInputStream).use { objectInputStream ->
+                    val configurations =
+                        objectInputStream.readObject() as List<Pair<String, List<Int>>>
+                    savedConfigurations.addAll(configurations)
+                }
+            }
             return true
-        } else {
-            return false
         }
+
+        return false
     }
 }

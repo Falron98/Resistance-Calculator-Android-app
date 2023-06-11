@@ -18,19 +18,19 @@ class ChooseStripesActivity : AppCompatActivity() {
     private lateinit var configurationsSpinner: Spinner
     private lateinit var configurationNameEditText: EditText
     private val normalColorOptions = arrayOf(
-        "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray", "White"
+        "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Gray", "White", "Silver", "Gold"
     )
 
     private val multiplierColorOptions = arrayOf(
-        "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray", "White", "Silver", "Gold"
+        "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Gray", "White", "Silver", "Gold"
     )
 
     private val toleranceColorOptions = arrayOf(
-        "None", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray", "Silver", "Gold"
+        "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Gray", "White", "Silver", "Gold"
     )
 
     private val temperatureColorOptions = arrayOf(
-        "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray"
+        "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Gray", "White", "Silver", "Gold"
     )
 
     private val savedConfigurations = mutableListOf<Pair<String, List<Int>>>()
