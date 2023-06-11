@@ -13,7 +13,7 @@
     <!-- activity_main.xml -->
     <string name="CalcParallelAndSeries">Calculate Parallel And Series</string>
     <string name="btn_calculate_resistance">Calculate Resistance</string>
-    <string name="btn_show_past_results">Past Results</string>
+    <string name="btn_show_past_results">Past Results comparison</string>
     <string name="btn_settings">Settings</string>
     <string name="dark_mode">Dark mode</string>
 
@@ -34,5 +34,9 @@
     <string name="Unknown">Unknown</string>
     <string name="ToleranceVal">Tolerance Value</string>
     <string name="TempCoefficient">Temperature Coefficient:</string>
+
+    <!-- avtivity_past_results.xml -->
+    <string name="SelectConfig1">Resistor config 1:</string>
+    <string name="SelectConfig2">Resistor config 2:</string>
 
 </resources>
