@@ -14,6 +14,6 @@ Bartosz Krystowski s19545</br>
   <li>Option to save calculation results to history, allowing users to view and replay them.</li>
   <li>Adding the option to change the unit of resistance to other units, such as kΩ, MΩ, etc.</li>
   <li>Adding the option to choose a light or dark mode for the application interface.</li>
-  <li>Displaying a graph of the current-voltage characteristic of the resistor</li>
+  <li>Function for calculating parallel resistors</li>
   <li>Adding the option to select the language of the user interface, such as English, Polish, etc.</li>
 </ul>
