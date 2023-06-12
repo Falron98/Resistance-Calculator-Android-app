@@ -9,6 +9,7 @@
         android:id="@+id/stripeNumberSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="48dp"
         android:spinnerMode="dropdown" />
 
     <LinearLayout
@@ -35,5 +36,45 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:text="@string/submit" />
+
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="395dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/submitButton"
+        android:layout_marginTop="104dp"
+        android:text="@string/saveButton" />
+
+    <Button
+        android:id="@+id/loadButton"
+        android:layout_width="390dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/saveButton"
+        android:layout_marginTop="13dp"
+        android:text="@string/loadButton" />
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="390dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loadButton"
+        android:layout_marginTop="13dp"
+        android:text="@string/deleteButton" />
+
+    <EditText
+        android:id="@+id/configurationNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/submitButton"
+        android:minHeight="48dp"
+        android:text="@string/configurations" />
+
+    <Spinner
+        android:id="@+id/configurationsSpinner"
+        android:layout_width="386dp"
+        android:layout_height="46dp"
+        android:layout_below="@id/configurationNameEditText"
+        />
+
 
 </RelativeLayout>

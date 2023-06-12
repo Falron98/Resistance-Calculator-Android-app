@@ -7,13 +7,13 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.SwitchCompat
 
-class MainActivity : AppCompatActivity(), View.OnClickListener{
+class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var btnCalculateResistance: Button
     private lateinit var btnShowPastResults: Button
     private lateinit var btnSettings: Button
+    private lateinit var btnCalculateParallelAndSeries: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,40 +23,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         btnCalculateResistance = findViewById(R.id.btnCalculateResistance)
         btnShowPastResults = findViewById(R.id.btnShowPastResults)
         btnSettings = findViewById(R.id.btnSettings)
+        btnCalculateParallelAndSeries = findViewById(R.id.btnCalculateParallelAndSeries)
 
         // Set click listeners for buttons
         btnCalculateResistance.setOnClickListener(this)
         btnShowPastResults.setOnClickListener(this)
         btnSettings.setOnClickListener(this)
-
-        // Initialize night mode switch
-        val switch = findViewById<SwitchCompat>(R.id.switch1)
+        btnCalculateParallelAndSeries.setOnClickListener(this)
 
         // Get night mode settings from SharedPreferences
         val sharedPreferences = getSharedPreferences("DarkMode", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
         val nightMode = sharedPreferences.getBoolean("night", false)
 
-        // Set switch state and night mode based on settings
-        if (nightMode) {
-            switch.isChecked = true
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        }
-
-        // Listen for switch state changes
-        switch.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (!isChecked) {
-                // Day mode
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                editor.putBoolean("night", false)
-                editor.apply()
-            } else {
-                // Night mode
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                editor.putBoolean("night", true)
-                editor.apply()
-            }
-        }
+        // Set night mode based on settings
+        updateNightMode(nightMode)
     }
 
     override fun onClick(view: View?) {
@@ -65,6 +45,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
                 R.id.btnCalculateResistance -> {
                     // Start resistance calculator activity
                     val intent = Intent(this, ChooseStripesActivity::class.java)
+                    startActivity(intent)
+                }
+                R.id.btnCalculateParallelAndSeries -> {
+                    // Start resistance calculate parallel and series
+                    val intent = Intent(this, ResistanceCalculatorParallelAndSeriesActivity::class.java)
                     startActivity(intent)
                 }
                 R.id.btnShowPastResults -> {
@@ -78,6 +63,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
                     startActivity(intent)
                 }
             }
+        }
+    }
+
+    private fun updateNightMode(nightModeEnabled: Boolean) {
+        if (nightModeEnabled) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
 }

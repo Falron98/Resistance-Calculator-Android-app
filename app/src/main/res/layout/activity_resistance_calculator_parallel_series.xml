@@ -1,0 +1,67 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/EnterValue"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/editTextResistors"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:minHeight="48dp" />
+
+    <Button
+        android:id="@+id/buttonCalculateSeries"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/CalculateSeries" />
+
+    <Button
+        android:id="@+id/buttonCalculateParallel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/CalculateParallel" />
+
+    <TextView
+        android:id="@+id/textViewResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textSize="18sp" />
+    <RadioGroup
+        android:id="@+id/radioGroupUnits"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioButtonOhms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Ohms"
+         />
+
+        <RadioButton
+            android:id="@+id/radioButtonKiloohms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Kiloohms"
+         />
+
+        <RadioButton
+            android:id="@+id/radioButtonMegaohms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Megaohms"
+         />
+
+    </RadioGroup>
+
+</LinearLayout>

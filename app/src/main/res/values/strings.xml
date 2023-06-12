@@ -1,11 +1,44 @@
 <resources>
-    <string name="btn_calculate_resistance">Calculate Resistance</string>
-    <string name="btn_show_past_results">Past Results</string>
-    <string name="btn_settings">Settings</string>
+
+    <!-- General -->
     <string name="app_name">Resistor calculator</string>
+    <string name="calculate_resistance">Calculate Resistance</string>
+    <string name="loadButton">Load configuration</string>
+    <string name="saveButton">Save configuration</string>
+    <string name="submit">Submit</string>
+    <string name="configurations">Enter a configuration name</string>
+    <string name="deleteButton">Delete configuration</string>
+
+
+    <!-- activity_main.xml -->
+    <string name="CalcParallelAndSeries">Calculate Parallel And Series</string>
+    <string name="btn_calculate_resistance">Calculate Resistance</string>
+    <string name="btn_show_past_results">Past Results comparison</string>
+    <string name="btn_settings">Settings</string>
     <string name="dark_mode">Dark mode</string>
     <string name="calculate_resistance">Calculate Resistance</string>
     <string name="submit">Submit</string>
 
+    <!-- activity_resistance_calculator_parallel_series.xml -->
+    <string name="EnterValue">Enter the resistor values separated by commas:</string>
+    <string name="CalculateSeries">Calculate (series)</string>
+    <string name="CalculateParallel">Calculate (parallel)</string>
+    <string name="Ohms">Ohms (Ω)</string>
+    <string name="Kiloohms">Kiloohms (kΩ)</string>
+    <string name="Megaohms">Megaohms (MΩ)</string>
+
+    <!-- ResistanceCalculatorParallelAndSeriesActivity.kt -->
+    <string name="ResultSeries">Resistance for series connection:</string>
+    <string name="ResultParallel">Resistance for parallel connection:</string>
+
+    <!-- activity_calculate_resistance.xml -->
+    <string name="ResistanceVal">Resistance Value:</string>
+    <string name="Unknown">Unknown</string>
+    <string name="ToleranceVal">Tolerance Value</string>
+    <string name="TempCoefficient">Temperature Coefficient:</string>
+
+    <!-- avtivity_past_results.xml -->
+    <string name="SelectConfig1">Resistor config 1:</string>
+    <string name="SelectConfig2">Resistor config 2:</string>
 
 </resources>
