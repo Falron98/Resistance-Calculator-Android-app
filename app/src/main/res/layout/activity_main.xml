@@ -15,8 +15,8 @@
         app:srcCompat="@drawable/baseline_offline_bolt_24" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="385dp"
+        android:layout_height="389dp"
         android:layout_below="@id/imageView"
         android:layout_marginTop="80dp"
         android:orientation="vertical">
@@ -45,12 +45,20 @@
             android:text="@string/btn_show_past_results" />
 
         <Button
+            android:id="@+id/btnHelp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/btn_help" />
+
+        <Button
             android:id="@+id/btnSettings"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
-            android:background="@drawable/baseline_settings_24"
-            android:layout_gravity="center_horizontal" />
+            android:background="@drawable/baseline_settings_24" />
 
     </LinearLayout>
 

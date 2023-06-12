@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var btnShowPastResults: Button
     private lateinit var btnSettings: Button
     private lateinit var btnCalculateParallelAndSeries: Button
+    private lateinit var btnHelp: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,12 +25,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btnShowPastResults = findViewById(R.id.btnShowPastResults)
         btnSettings = findViewById(R.id.btnSettings)
         btnCalculateParallelAndSeries = findViewById(R.id.btnCalculateParallelAndSeries)
+        btnHelp = findViewById(R.id.btnHelp)
 
         // Set click listeners for buttons
         btnCalculateResistance.setOnClickListener(this)
         btnShowPastResults.setOnClickListener(this)
         btnSettings.setOnClickListener(this)
         btnCalculateParallelAndSeries.setOnClickListener(this)
+        btnHelp.setOnClickListener(this)
 
         // Get night mode settings from SharedPreferences
         val sharedPreferences = getSharedPreferences("DarkMode", Context.MODE_PRIVATE)
@@ -55,6 +58,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 R.id.btnShowPastResults -> {
                     // Start past results activity
                     val intent = Intent(this, PastResultsActivity::class.java)
+                    startActivity(intent)
+                }
+                R.id.btnHelp -> {
+                    // Start past results activity
+                    val intent = Intent(this, HelpActivity::class.java)
                     startActivity(intent)
                 }
                 R.id.btnSettings -> {

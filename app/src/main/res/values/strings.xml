@@ -14,10 +14,9 @@
     <string name="CalcParallelAndSeries">Calculate Parallel And Series</string>
     <string name="btn_calculate_resistance">Calculate Resistance</string>
     <string name="btn_show_past_results">Past Results comparison</string>
+    <string name="btn_help">Help</string>
     <string name="btn_settings">Settings</string>
     <string name="dark_mode">Dark mode</string>
-    <string name="calculate_resistance">Calculate Resistance</string>
-    <string name="submit">Submit</string>
 
     <!-- activity_resistance_calculator_parallel_series.xml -->
     <string name="EnterValue">Enter the resistor values separated by commas:</string>
@@ -40,5 +39,23 @@
     <!-- avtivity_past_results.xml -->
     <string name="SelectConfig1">Resistor config 1:</string>
     <string name="SelectConfig2">Resistor config 2:</string>
+
+    <!-- activity_help.xml -->
+    <string name="help_title">Help</string>
+
+    <string name="three_band_label">3 Band</string>
+    <string name="three_band_text">Write the first two color\nnumbers side by side and\nmultiply by the third number\nbut tolerance must be %20.</string>
+
+    <string name="four_band_label">4 Band</string>
+    <string name="four_band_text">Write the first two color\nnumbers side by side and\nmultiply by the third number\nof colors, the result is the\nresistance value. Tolerance\nis the deviation value.</string>
+
+    <string name="five_band_label">5 Band</string>
+    <string name="five_band_text">Same as the fourth band but\nwrite side by side the first,\nsecond, and third color numbers.\nThe rest is the same as the\nfourth band.</string>
+
+    <string name="six_band_label">6 Band</string>
+    <string name="six_band_text">The same as the fifth band,\nonly the sixth color selection,\ntemperature, was added. It measures\nthe changing ohms per degree.\n(Third color * resistance value)\n/1000000.</string>
+
+    <string name="colors_label">Colors:</string>
+    <string name="colors_text">-Normal-\nBlack: 0\nBrown: 1\nRed: 2\nOrange: 3\nYellow: 4\nGreen: 5\nBlue: 6\nPurple: 7\nGray: 8\nWhite: 9\n-Multiplier-\nBlack: x1\nBrown: x10\nRed: x100\nOrange: x1K\nYellow: x10K\nGreen: x100K\nBlue: x1M\nPurple: x10M\nGray: x100M\nWhite: x1G\nGold: %10\nSilver: %100\n-Tolerance-\nBrown: %1\nRed: %2\nOrange: %0.05\nYellow: %0.02\nGreen: %0.5\nBlue: %0.25\nPurple: %0.1\nGray: %0.01\nGold: %5\nSilver: %10\n-Temperature Coefficient-\nBrown: 250ppm/C\nRed: 100ppm/C\nOrange: 15ppm/C\nYellow: 25ppm/C\nBlue: 10ppm/C\nPurple: 5ppm/C\nGray: 1ppm/C</string>
 
 </resources>
