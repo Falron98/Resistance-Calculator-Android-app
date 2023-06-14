@@ -1,11 +1,12 @@
 package pjwstk.edu.pl.resistor_calculator
-
+import android.graphics.Color
 import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.core.content.ContextCompat
 import java.io.*
 
 class ChooseStripesActivity : AppCompatActivity() {
@@ -17,19 +18,7 @@ class ChooseStripesActivity : AppCompatActivity() {
     private lateinit var deleteButton: Button
     private lateinit var configurationsSpinner: Spinner
     private lateinit var configurationNameEditText: EditText
-    private val normalColorOptions = arrayOf(
-        "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Gray", "White", "Silver", "Gold"
-    )
-
-    private val multiplierColorOptions = arrayOf(
-        "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Gray", "White", "Silver", "Gold"
-    )
-
-    private val toleranceColorOptions = arrayOf(
-        "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Gray", "White", "Silver", "Gold"
-    )
-
-    private val temperatureColorOptions = arrayOf(
+    private val colorOptions = arrayOf(
         "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Gray", "White", "Silver", "Gold"
     )
 
@@ -66,7 +55,7 @@ class ChooseStripesActivity : AppCompatActivity() {
                     val stripeAdapter = ArrayAdapter(
                         this@ChooseStripesActivity,
                         android.R.layout.simple_spinner_item,
-                        getStripeColorOptions(i, numStripes)
+                        colorOptions
                     )
                     stripeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     stripeSpinner.adapter = stripeAdapter
@@ -81,6 +70,8 @@ class ChooseStripesActivity : AppCompatActivity() {
                             ) {
                                 checkSubmitButtonState()
                                 val selectedColor = stripeAdapter.getItem(position).toString()
+                                val backgroundColor = getColorForStripe(selectedColor)
+                                stripeSpinner.setBackgroundColor(backgroundColor)
                                 Toast.makeText(
                                     applicationContext,
                                     "Selected Color: $selectedColor",
@@ -93,6 +84,7 @@ class ChooseStripesActivity : AppCompatActivity() {
                             }
                         }
                 }
+                loadConfigurationColors()
                 checkSubmitButtonState()
             }
 
@@ -137,28 +129,49 @@ class ChooseStripesActivity : AppCompatActivity() {
         }
 
         loadButton.setOnClickListener {
+            val stripeOptions = arrayOf("3 Stripes", "4 Stripes", "5 Stripes", "6 Stripes")
             val selectedConfigurationIndex = configurationsSpinner.selectedItemPosition
             if (selectedConfigurationIndex != AdapterView.INVALID_POSITION) {
-                val selectedStripes = savedConfigurations[selectedConfigurationIndex].second
-                val numSelectedStripes = selectedStripes.size
-                val numStripeSpinners = stripeSpinnersContainer.childCount
+                val selectedConfiguration = savedConfigurations[selectedConfigurationIndex]
+                val numStripes = selectedConfiguration.second.size
+                val stripeOption = "$numStripes Stripes"
+                val stripeOptionIndex = stripeOptions.indexOf(stripeOption)
+                stripeNumberSpinner.setSelection(stripeOptionIndex)
 
-                val numExpectedStripes = when (numStripeSpinners) {
-                    6 -> numStripeSpinners
-                    else -> numStripeSpinners
-                }
-
-                if (numSelectedStripes == numExpectedStripes) {
-                    setStripeColors(selectedStripes)
-                } else {
-                    Toast.makeText(this, "Invalid configuration", Toast.LENGTH_SHORT).show()
-                }
+                val colors = selectedConfiguration.second
+                setStripeColors(colors)
             }
         }
 
+
         loadConfigurationsFromFile()
     }
-
+    private fun loadConfigurationColors() {
+        val selectedConfigurationIndex = configurationsSpinner.selectedItemPosition
+        if (selectedConfigurationIndex != AdapterView.INVALID_POSITION) {
+            val selectedConfiguration = savedConfigurations[selectedConfigurationIndex]
+            val colors = selectedConfiguration.second
+            setStripeColors(colors)
+        }
+    }
+    private fun getColorForStripe(color: String): Int {
+        return when (color) {
+            "None" -> Color.TRANSPARENT
+            "Black" -> ContextCompat.getColor(this, R.color.black)
+            "Brown" -> ContextCompat.getColor(this, R.color.brown)
+            "Red" -> ContextCompat.getColor(this, R.color.red)
+            "Orange" -> ContextCompat.getColor(this, R.color.orange)
+            "Yellow" -> ContextCompat.getColor(this, R.color.yellow)
+            "Green" -> ContextCompat.getColor(this, R.color.green)
+            "Blue" -> ContextCompat.getColor(this, R.color.blue)
+            "Purple" -> ContextCompat.getColor(this, R.color.purple)
+            "Gray" -> ContextCompat.getColor(this, R.color.gray)
+            "White" -> ContextCompat.getColor(this, R.color.white)
+            "Silver" -> ContextCompat.getColor(this, R.color.silver)
+            "Gold" -> ContextCompat.getColor(this, R.color.gold)
+            else -> Color.TRANSPARENT
+        }
+    }
     private fun checkSubmitButtonState() {
         var isSubmitButtonEnabled = true
         for (i in 0 until stripeSpinnersContainer.childCount) {
@@ -177,43 +190,7 @@ class ChooseStripesActivity : AppCompatActivity() {
         }
     }
 
-    private fun getStripeColorOptions(position: Int, numStripes: Int): Array<String> {
-        return when (numStripes) {
-            3 -> {
-                when (position) {
-                    1, 2 -> normalColorOptions
-                    3 -> multiplierColorOptions
-                    else -> emptyArray()
-                }
-            }
-            4 -> {
-                when (position) {
-                    1, 2 -> normalColorOptions
-                    3 -> multiplierColorOptions
-                    4 -> toleranceColorOptions
-                    else -> emptyArray()
-                }
-            }
-            5 -> {
-                when (position) {
-                    1, 2, 3 -> normalColorOptions
-                    4 -> multiplierColorOptions
-                    5 -> toleranceColorOptions
-                    else -> emptyArray()
-                }
-            }
-            6 -> {
-                when (position) {
-                    1, 2, 3 -> normalColorOptions
-                    4 -> multiplierColorOptions
-                    5 -> toleranceColorOptions
-                    6 -> temperatureColorOptions
-                    else -> emptyArray()
-                }
-            }
-            else -> emptyArray()
-        }
-    }
+
 
     private fun updateConfigurationsSpinner() {
         // Pobierz nazwy konfiguracji
@@ -226,22 +203,21 @@ class ChooseStripesActivity : AppCompatActivity() {
     }
 
     private fun setStripeColors(colors: List<Int>) {
-        // Ustaw kolory dla poszczególnych spinnerów
+        if (stripeSpinnersContainer.childCount != colors.size) {
+            return
+        }
+
         for (i in 0 until stripeSpinnersContainer.childCount) {
             val stripeSpinner = stripeSpinnersContainer.getChildAt(i) as Spinner
             val colorIndex = colors[i]
-            stripeSpinner.setSelection(colorIndex)
+            if (colorIndex >= 0 && colorIndex < colorOptions.size) {
+                stripeSpinner.setSelection(colorIndex)
+            } else {
+                stripeSpinner.setSelection(0)
+            }
         }
     }
-    private fun getColorIndex(color: String, position: Int): Int {
-        return when (position) {
-            1, 2, 3 -> normalColorOptions.indexOf(color)
-            4 -> multiplierColorOptions.indexOf(color)
-            5 -> toleranceColorOptions.indexOf(color)
-            6 -> temperatureColorOptions.indexOf(color)
-            else -> 0
-        }
-    }
+
 
     private fun saveConfigurationsToFile() {
         // Zapisz konfiguracje do pliku

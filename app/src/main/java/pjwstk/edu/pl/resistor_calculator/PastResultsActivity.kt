@@ -12,13 +12,14 @@ import androidx.appcompat.app.AppCompatActivity
 import java.io.File
 import java.io.FileInputStream
 import java.io.ObjectInputStream
+import java.text.DecimalFormat
 
 class PastResultsActivity : AppCompatActivity() {
     private lateinit var configurationSpinner1: Spinner
     private lateinit var configurationSpinner2: Spinner
     private lateinit var resultTextView1: TextView
     private lateinit var resultTextView2: TextView
-
+    val decimalFormat = DecimalFormat("#.##")
     private val savedConfigurations = mutableListOf<Pair<String, List<Int>>>()
     private val resultData = mutableMapOf<Pair<String, List<Int>>, String>()
 
@@ -183,9 +184,11 @@ class PastResultsActivity : AppCompatActivity() {
             val resistanceValue = (firstNumber * 10 + secondNumber * 1) * multiplierValue
 
             val formattedResistance = when {
-                resistanceValue >= 1e9 -> "${(resistanceValue / 1e9)} GΩ"
-                resistanceValue >= 1e6 -> "${(resistanceValue / 1e6)} MΩ"
-                else -> "$resistanceValue Ω"
+                resistanceValue >= 1e9 -> "${decimalFormat.format(resistanceValue / 1e9)} GΩ"
+                resistanceValue >= 1e6 -> "${decimalFormat.format(resistanceValue / 1e6)} MΩ"
+                resistanceValue >= 1 -> "${decimalFormat.format(resistanceValue)} Ω"
+                resistanceValue > 0 -> "${decimalFormat.format(resistanceValue)} Ω"
+                else -> "0 Ω"
             }
 
             return "Resistance: $formattedResistance, Tolerance: ±20%"
@@ -231,9 +234,11 @@ class PastResultsActivity : AppCompatActivity() {
             val resistanceValue = (firstNumber * 10 + secondNumber * 1) * multiplierValue
 
             val formattedResistance = when {
-                resistanceValue >= 1e9 -> "${(resistanceValue / 1e9).toInt()} GΩ"
-                resistanceValue >= 1e6 -> "${(resistanceValue / 1e6).toInt()} MΩ"
-                else -> "$resistanceValue Ω"
+                resistanceValue >= 1e9 -> "${decimalFormat.format(resistanceValue / 1e9)} GΩ"
+                resistanceValue >= 1e6 -> "${decimalFormat.format(resistanceValue / 1e6)} MΩ"
+                resistanceValue >= 1 -> "${decimalFormat.format(resistanceValue)} Ω"
+                resistanceValue > 0 -> "${decimalFormat.format(resistanceValue)} Ω"
+                else -> "0 Ω"
             }
 
             return "Resistance: $formattedResistance, Tolerance: $toleranceValue"
@@ -280,9 +285,11 @@ class PastResultsActivity : AppCompatActivity() {
             val resistanceValue =
                 (firstNumber * 100 + secondNumber * 10 + thirdNumber) * multiplierValue
             val formattedResistance = when {
-                resistanceValue >= 1e9 -> "${(resistanceValue / 1e9).toInt()} GΩ"
-                resistanceValue >= 1e6 -> "${(resistanceValue / 1e6).toInt()} MΩ"
-                else -> "$resistanceValue Ω"
+                resistanceValue >= 1e9 -> "${decimalFormat.format(resistanceValue / 1e9)} GΩ"
+                resistanceValue >= 1e6 -> "${decimalFormat.format(resistanceValue / 1e6)} MΩ"
+                resistanceValue >= 1 -> "${decimalFormat.format(resistanceValue)} Ω"
+                resistanceValue > 0 -> "${decimalFormat.format(resistanceValue)} Ω"
+                else -> "0 Ω"
             }
 
             return "Resistance: $formattedResistance, Tolerance: $toleranceValue"
@@ -346,9 +353,11 @@ class PastResultsActivity : AppCompatActivity() {
             val resistanceValue =
                 (firstNumber * 100 + secondNumber * 10 + thirdNumber) * multiplierValue
             val formattedResistance = when {
-                resistanceValue >= 1e9 -> "${(resistanceValue / 1e9).toInt()} GΩ"
-                resistanceValue >= 1e6 -> "${(resistanceValue / 1e6).toInt()} MΩ"
-                else -> "$resistanceValue Ω"
+                resistanceValue >= 1e9 -> "${decimalFormat.format(resistanceValue / 1e9)} GΩ"
+                resistanceValue >= 1e6 -> "${decimalFormat.format(resistanceValue / 1e6)} MΩ"
+                resistanceValue >= 1 -> "${decimalFormat.format(resistanceValue)} Ω"
+                resistanceValue > 0 -> "${decimalFormat.format(resistanceValue)} Ω"
+                else -> "0 Ω"
             }
             return "Resistance: $formattedResistance, Tolerance: $toleranceValue, PPM: $ppmValue"
         }
