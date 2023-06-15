@@ -23,7 +23,7 @@ class ResistanceCalculatorParallelAndSeriesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_resistance_calculator_parallel_series)
 
-        // Inicjalizacja elementów interfejsu użytkownika
+        // Initialization of user interface elements
         editTextResistors = findViewById(R.id.editTextResistors)
         buttonCalculateSeries = findViewById(R.id.buttonCalculateSeries)
         buttonCalculateParallel = findViewById(R.id.buttonCalculateParallel)
@@ -31,7 +31,7 @@ class ResistanceCalculatorParallelAndSeriesActivity : AppCompatActivity() {
         radioButtonKiloohms = findViewById(R.id.radioButtonKiloohms)
         radioButtonMegaohms = findViewById(R.id.radioButtonMegaohms)
 
-        // Ustawienie obsługi kliknięcia przycisków
+        // Button click handler
         buttonCalculateSeries.setOnClickListener {
             calculateSeriesResistance()
         }
@@ -41,28 +41,29 @@ class ResistanceCalculatorParallelAndSeriesActivity : AppCompatActivity() {
         }
     }
 
-    // Parsowanie wartości rezystorów wprowadzonych przez użytkownika
+    // Parsing user-entered resistor values
     private fun parseResistors(): List<Double> {
         val resistorsText = editTextResistors.text.toString()
         val resistorsArray = resistorsText.split(",").map { it.toDouble() }
         return resistorsArray
     }
 
-    // Klasa do obliczania rezystancji
+    // Class for calculating resistance
     class ResistorCalculator {
 
-        // Obliczanie rezystancji dla połączenia szeregowego
+        // Calculation of resistance for series connection
         fun calculateSeriesResistance(resistors: List<Double>): Double {
             return resistors.sum()
         }
 
-        // Obliczanie rezystancji dla połączenia równoległego
+        // Calculation of resistance for parallel connection
         fun calculateParallelResistance(resistors: List<Double>): Double {
             return 1 / resistors.sumOf { 1 / it }
         }
     }
 
-    // Obliczanie rezystancji dla połączenia szeregowego
+    // Calculation of resistance for a series connection
+    @SuppressLint("SetTextI18n")
     private fun calculateSeriesResistance() {
         val resistors = parseResistors()
         val calculator = ResistorCalculator()
@@ -71,7 +72,8 @@ class ResistanceCalculatorParallelAndSeriesActivity : AppCompatActivity() {
         textViewResult.text = getString(R.string.ResultSeries) + " " + formattedResistance
     }
 
-    // Obliczanie rezystancji dla połączenia równoległego
+    // Calculation of resistance for parallel connection
+    @SuppressLint("SetTextI18n")
     private fun calculateParallelResistance() {
         val resistors = parseResistors()
         val calculator = ResistorCalculator()
@@ -80,7 +82,7 @@ class ResistanceCalculatorParallelAndSeriesActivity : AppCompatActivity() {
         textViewResult.text = getString(R.string.ResultParallel) + " " + formattedResistance
     }
 
-    // Formatowanie wartości rezystancji na podstawie wybranej jednostki
+    // Formatting the resistance value based on the selected unit
     private fun formatResistanceValue(resistance: Double): String {
         val selectedUnit = getSelectedResistanceUnit()
         val formattedValue: String
@@ -100,7 +102,7 @@ class ResistanceCalculatorParallelAndSeriesActivity : AppCompatActivity() {
         return formattedValue
     }
 
-    // Pobieranie wybranej jednostki rezystancji
+    // Choose resistance unit
     private fun getSelectedResistanceUnit(): String {
         return when {
             radioButtonKiloohms.isChecked -> "kΩ"

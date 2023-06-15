@@ -8,13 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 
 class StartActivity : AppCompatActivity() {
 
-    private val delayDuration: Long = 2000 // 2 seconds
+    private val delayDuration: Long = 2000 // Delay for the specified duration before starting MainActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
 
-        // Delayed redirect to MainActivity
+        // Redirect to MainActivity with delay
         Handler(Looper.getMainLooper()).postDelayed({
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
@@ -22,3 +22,4 @@ class StartActivity : AppCompatActivity() {
         }, delayDuration)
     }
 }
+

@@ -28,12 +28,12 @@ class PastResultsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_past_results)
 
-        // Wczytaj konfiguracje z pliku
+        // Load config from file
         val configurationsLoaded = loadConfigurationsFromFile()
         val numberOfConfigurations = savedConfigurations.size
 
         if (configurationsLoaded && numberOfConfigurations >= 2) {
-            // Przykładowe dane - dodaj swoje zapisane wyniki
+            // Example data - add yours results
             resultData[savedConfigurations[0]] = "Wynik 1"
             resultData[savedConfigurations[1]] = "Wynik 2"
 
@@ -50,7 +50,7 @@ class PastResultsActivity : AppCompatActivity() {
             configurationSpinner1.adapter = adapter
             configurationSpinner2.adapter = adapter
 
-            // Ustaw domyślnie różne konfiguracje na spinnerach
+            // Set default values for spinners
             configurationSpinner1.setSelection(0)
             configurationSpinner2.setSelection(1)
 
@@ -63,9 +63,9 @@ class PastResultsActivity : AppCompatActivity() {
                         id: Long
                     ) {
                         val selectedConfiguration = savedConfigurations[position]
-                        val result = resultData[selectedConfiguration]
+                        resultData[selectedConfiguration]
 
-                        displayResult(selectedConfiguration, result ?: "", resultTextView1)
+                        displayResult(selectedConfiguration, resultTextView1)
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -82,9 +82,9 @@ class PastResultsActivity : AppCompatActivity() {
                         id: Long
                     ) {
                         val selectedConfiguration = savedConfigurations[position]
-                        val result = resultData[selectedConfiguration]
+                        resultData[selectedConfiguration]
 
-                        displayResult(selectedConfiguration, result ?: "", resultTextView2)
+                        displayResult(selectedConfiguration, resultTextView2)
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -92,7 +92,7 @@ class PastResultsActivity : AppCompatActivity() {
                     }
                 }
         } else {
-            // Brak konfiguracji lub plik nie istnieje - przejdź do ChooseStripesActivity
+            // No configuration or file doesnt exist
             val intent = Intent(this, ChooseStripesActivity::class.java)
             startActivity(intent)
             finish()
@@ -101,7 +101,6 @@ class PastResultsActivity : AppCompatActivity() {
 
     private fun displayResult(
         configuration: Pair<String, List<Int>>,
-        result: String,
         textView: TextView
     ) {
         val configurationName = configuration.first
@@ -161,7 +160,7 @@ class PastResultsActivity : AppCompatActivity() {
 
 
         if (selectedStripes.size == 3) {
-            // Konfiguracja z 3 polami: początkowe liczby, mnożnik
+            // Configuration with 3 stripes: Basic values, Mulitplier
             val firstNumber = (colorsToValues.values.elementAt(selectedStripes[0]) - 1).toDouble()
             val secondNumber = (colorsToValues.values.elementAt(selectedStripes[1]) - 1).toDouble()
             val multiplierColor = selectedStripes[2]
@@ -186,14 +185,14 @@ class PastResultsActivity : AppCompatActivity() {
             val formattedResistance = when {
                 resistanceValue >= 1e9 -> "${decimalFormat.format(resistanceValue / 1e9)} GΩ"
                 resistanceValue >= 1e6 -> "${decimalFormat.format(resistanceValue / 1e6)} MΩ"
-                resistanceValue >= 1 -> "${decimalFormat.format(resistanceValue)} Ω"
+                resistanceValue >= 1e3 -> "${decimalFormat.format(resistanceValue / 1e3)} KΩ"
                 resistanceValue > 0 -> "${decimalFormat.format(resistanceValue)} Ω"
                 else -> "0 Ω"
             }
 
             return "Resistance: $formattedResistance, Tolerance: ±20%"
         } else if (selectedStripes.size == 4) {
-            // Konfiguracja z 4 polami: początkowe liczby, mnożnik, tolerancja
+            // Configuration with 4 stripes: Basic values, Multiplier, Tolerance
             val firstNumber = colorsToValues.values.elementAt(selectedStripes[0]) - 1
             val secondNumber = colorsToValues.values.elementAt(selectedStripes[1]) - 1
             val multiplierColor = selectedStripes[2]
@@ -203,12 +202,12 @@ class PastResultsActivity : AppCompatActivity() {
                 "Black" to "N/a",
                 "Brown" to "±1%",
                 "Red" to "±2%",
-                "Orange" to "N/a",
-                "Yellow" to "N/a",
+                "Orange" to "±0.05%",
+                "Yellow" to "±0.02%",
                 "Green" to "±0.5%",
                 "Blue" to "±0.25%",
                 "Purple" to "±0.1%",
-                "Gray" to "±0.05%",
+                "Gray" to "±0.01%",
                 "White" to "N/a",
                 "Silver" to "±10%",
                 "Gold" to "±5%",
@@ -227,7 +226,7 @@ class PastResultsActivity : AppCompatActivity() {
                 "Gold" to 0.1,
                 "Silver" to 0.01
             )
-            val multiplierValue = multiplierValues[getColorName(multiplierColor)]?.toDouble() ?: 0.0
+            val multiplierValue = multiplierValues[getColorName(multiplierColor)] ?: 0.0
 
             val toleranceValue = toleranceValues[getColorName(toleranceColor)]
 
@@ -236,7 +235,7 @@ class PastResultsActivity : AppCompatActivity() {
             val formattedResistance = when {
                 resistanceValue >= 1e9 -> "${decimalFormat.format(resistanceValue / 1e9)} GΩ"
                 resistanceValue >= 1e6 -> "${decimalFormat.format(resistanceValue / 1e6)} MΩ"
-                resistanceValue >= 1 -> "${decimalFormat.format(resistanceValue)} Ω"
+                resistanceValue >= 1e3 -> "${decimalFormat.format(resistanceValue / 1e3)} KΩ"
                 resistanceValue > 0 -> "${decimalFormat.format(resistanceValue)} Ω"
                 else -> "0 Ω"
             }
@@ -245,7 +244,7 @@ class PastResultsActivity : AppCompatActivity() {
 
 
         } else if (selectedStripes.size == 5) {
-            // Konfiguracja z 5 polami: początkowe liczby, mnożnik, tolerancja
+            // Configuration with 5 stripes: Basic values, Multiplier, Tolerance
             val firstNumber = colorsToValues.values.elementAt(selectedStripes[0]) - 1
             val secondNumber = colorsToValues.values.elementAt(selectedStripes[1]) - 1
             val thirdNumber = colorsToValues.values.elementAt(selectedStripes[2]) - 1
@@ -256,12 +255,12 @@ class PastResultsActivity : AppCompatActivity() {
                 "Black" to "N/a",
                 "Brown" to "±1%",
                 "Red" to "±2%",
-                "Orange" to "N/a",
-                "Yellow" to "N/a",
+                "Orange" to "±0.05%",
+                "Yellow" to "±0.02%",
                 "Green" to "±0.5%",
                 "Blue" to "±0.25%",
                 "Purple" to "±0.1%",
-                "Gray" to "±0.05%",
+                "Gray" to "±0.01%",
                 "White" to "N/a",
                 "Silver" to "±10%",
                 "Gold" to "±5%",
@@ -280,7 +279,7 @@ class PastResultsActivity : AppCompatActivity() {
                 "Gold" to 0.1,
                 "Silver" to 0.01
             )
-            val multiplierValue = multiplierValues[getColorName(multiplierColor)]?.toDouble() ?: 0.0
+            val multiplierValue = multiplierValues[getColorName(multiplierColor)] ?: 0.0
             val toleranceValue = toleranceValues[getColorName(toleranceColor)]
             val resistanceValue =
                 (firstNumber * 100 + secondNumber * 10 + thirdNumber) * multiplierValue
@@ -295,7 +294,7 @@ class PastResultsActivity : AppCompatActivity() {
             return "Resistance: $formattedResistance, Tolerance: $toleranceValue"
 
         } else if (selectedStripes.size == 6) {
-            // Konfiguracja z 6 polami: początkowe liczby, mnożnik, tolerancja, ppm
+            // Configuration with 6 stripes: Basic values, Multiplier, Tolerance, Temperature Coefficient
             val firstNumber = colorsToValues.values.elementAt(selectedStripes[0]) - 1
             val secondNumber = colorsToValues.values.elementAt(selectedStripes[1]) - 1
             val thirdNumber = colorsToValues.values.elementAt(selectedStripes[2]) - 1
@@ -314,22 +313,22 @@ class PastResultsActivity : AppCompatActivity() {
                 "Gold" to 0.1,
                 "Silver" to 0.01
             )
-            val multiplierValue = multiplierValues[getColorName(multiplierColor)]?.toDouble() ?: 0.0
+            val multiplierValue = multiplierValues[getColorName(multiplierColor)] ?: 0.0
             val toleranceColor = selectedStripes[4]
             val toleranceValues = mapOf(
                 "None" to "N/a",
                 "Black" to "N/a",
                 "Brown" to "±1%",
                 "Red" to "±2%",
-                "Orange" to "N/a",
-                "Yellow" to "N/a",
+                "Orange" to "±0.05%",
+                "Yellow" to "±0.02%",
                 "Green" to "±0.5%",
                 "Blue" to "±0.25%",
                 "Purple" to "±0.1%",
-                "Gray" to "±0.05%",
+                "Gray" to "±0.01%",
                 "White" to "N/a",
                 "Silver" to "±10%",
-                "Gold" to "±5%"
+                "Gold" to "±5%",
             )
             val toleranceValue = toleranceValues[getColorName(toleranceColor)]
             val ppmColor = selectedStripes[5]
@@ -355,7 +354,7 @@ class PastResultsActivity : AppCompatActivity() {
             val formattedResistance = when {
                 resistanceValue >= 1e9 -> "${decimalFormat.format(resistanceValue / 1e9)} GΩ"
                 resistanceValue >= 1e6 -> "${decimalFormat.format(resistanceValue / 1e6)} MΩ"
-                resistanceValue >= 1 -> "${decimalFormat.format(resistanceValue)} Ω"
+                resistanceValue >= 1e3 -> "${decimalFormat.format(resistanceValue / 1e3)} KΩ"
                 resistanceValue > 0 -> "${decimalFormat.format(resistanceValue)} Ω"
                 else -> "0 Ω"
             }

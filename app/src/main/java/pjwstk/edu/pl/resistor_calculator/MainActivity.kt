@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     startActivity(intent)
                 }
                 R.id.btnCalculateParallelAndSeries -> {
-                    // Start resistance calculate parallel and series
+                    // Start resistance calculate parallel and series activity
                     val intent = Intent(this, ResistanceCalculatorParallelAndSeriesActivity::class.java)
                     startActivity(intent)
                 }
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     startActivity(intent)
                 }
                 R.id.btnHelp -> {
-                    // Start past results activity
+                    // Start help activity
                     val intent = Intent(this, HelpActivity::class.java)
                     startActivity(intent)
                 }
@@ -76,9 +76,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun updateNightMode(nightModeEnabled: Boolean) {
         if (nightModeEnabled) {
+            // Set night mode
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else {
+            // Set light mode
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
 }
+

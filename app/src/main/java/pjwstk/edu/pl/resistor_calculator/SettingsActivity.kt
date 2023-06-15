@@ -1,7 +1,6 @@
 package pjwstk.edu.pl.resistor_calculator
 
 import android.content.Context
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
@@ -35,10 +34,13 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
+    // Function to update the night mode
     private fun updateNightMode(nightModeEnabled: Boolean) {
         if (nightModeEnabled) {
+            // Set the app's night mode to "yes"
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else {
+            // Set the app's night mode to "no"
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }

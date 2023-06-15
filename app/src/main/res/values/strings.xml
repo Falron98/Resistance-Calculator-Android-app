@@ -36,7 +36,7 @@
     <string name="ToleranceVal">Tolerance Value</string>
     <string name="TempCoefficient">Temperature Coefficient:</string>
 
-    <!-- avtivity_past_results.xml -->
+    <!-- activity_past_results.xml -->
     <string name="SelectConfig1">Resistor config 1:</string>
     <string name="SelectConfig2">Resistor config 2:</string>
 
