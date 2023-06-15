@@ -68,6 +68,7 @@ class ChooseStripesActivity : AppCompatActivity() {
                                 position: Int,
                                 id: Long
                             ) {
+
                                 checkSubmitButtonState()
                                 val selectedColor = stripeAdapter.getItem(position).toString()
                                 val backgroundColor = getColorForStripe(selectedColor)
@@ -84,7 +85,7 @@ class ChooseStripesActivity : AppCompatActivity() {
                             }
                         }
                 }
-                loadConfigurationColors()
+
                 checkSubmitButtonState()
             }
 
