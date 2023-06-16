@@ -8,9 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 
 class StartActivity : AppCompatActivity() {
 
-    private val delayDuration: Long = 2000 // Delay for the specified duration before starting MainActivity
+    val delayDuration: Long = 2000 // Delay for the specified duration before starting MainActivity
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
 

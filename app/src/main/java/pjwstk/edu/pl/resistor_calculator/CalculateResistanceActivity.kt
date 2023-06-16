@@ -12,7 +12,7 @@ class CalculateResistanceActivity : AppCompatActivity() {
     private val decimalFormat = DecimalFormat("#.##")
 
     @SuppressLint("MissingInflatedId")
-    override fun onCreate(savedInstanceState: Bundle?) {
+    public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calculate_resistance)
 
@@ -55,7 +55,7 @@ class CalculateResistanceActivity : AppCompatActivity() {
     }
 
     // Function to calculate the resistance value for a three- and four-band resistors
-    private fun calculateThreeFourBandResistance(stripes: List<String>?): Double {
+    fun calculateThreeFourBandResistance(stripes: List<String>?): Double {
         // Extract the color values for the first digit, second digit, and multiplier
         val firstDigit = getColorValue(stripes?.get(0))
         val secondDigit = getColorValue(stripes?.get(1))
@@ -71,7 +71,7 @@ class CalculateResistanceActivity : AppCompatActivity() {
 
 
     // Function to calculate the resistance value for a five- or six-band resistor
-    private fun calculateFiveSixBandResistance(stripes: List<String>?): Double {
+    fun calculateFiveSixBandResistance(stripes: List<String>?): Double {
         val firstDigit = getColorValue(stripes?.get(0))
         val secondDigit = getColorValue(stripes?.get(1))
         val thirdDigit = getColorValue(stripes?.get(2))
@@ -86,7 +86,7 @@ class CalculateResistanceActivity : AppCompatActivity() {
     }
 
     // Function to get the tolerance value based on the stripe colors
-    private fun getToleranceValue(stripes: List<String>?): String {
+    fun getToleranceValue(stripes: List<String>?): String {
         // Determine the index of the tolerance color based on the number of stripes
         val toleranceIndex = stripes?.size?.minus(2) ?: 0
         val tolerance = stripes?.get(toleranceIndex)
@@ -109,7 +109,7 @@ class CalculateResistanceActivity : AppCompatActivity() {
     }
 
     // Function to map the color name to its corresponding value
-    private fun getColorValue(color: String?): Int? {
+    fun getColorValue(color: String?): Int? {
         return when (color) {
             "Black" -> 0
             "Brown" -> 1
@@ -126,7 +126,7 @@ class CalculateResistanceActivity : AppCompatActivity() {
     }
 
     // Function to map the color name to its corresponding multiplier value
-    private fun getMultiplierValue(color: String?): Double? {
+    fun getMultiplierValue(color: String?): Double? {
         return when (color) {
             "Black" -> 1.0
             "Brown" -> 10.0
@@ -145,7 +145,7 @@ class CalculateResistanceActivity : AppCompatActivity() {
     }
 
     // Function to get the temperature coefficient value based on the stripe colors
-    private fun getTemperatureCoefficientValue(stripes: List<String>?): String {
+    fun getTemperatureCoefficientValue(stripes: List<String>?): String {
         // Determine the index of the temperature coefficient color based on the number of stripes
         val temperatureCoefficientIndex = stripes?.size?.minus(1) ?: 0
         val temperatureCoefficientColor = stripes?.get(temperatureCoefficientIndex)
@@ -166,7 +166,7 @@ class CalculateResistanceActivity : AppCompatActivity() {
     }
 
     // Function to format the resistance value based on its magnitude
-    private fun formatResistanceValue(resistanceValue: Double): String {
+    fun formatResistanceValue(resistanceValue: Double): String {
         return when {
             resistanceValue >= 1e9 -> "${decimalFormat.format(resistanceValue / 1e9)} GΩ"
             resistanceValue >= 1e6 -> "${decimalFormat.format(resistanceValue / 1e6)} MΩ"

@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun updateNightMode(nightModeEnabled: Boolean) {
+    fun updateNightMode(nightModeEnabled: Boolean) {
         if (nightModeEnabled) {
             // Set night mode
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)

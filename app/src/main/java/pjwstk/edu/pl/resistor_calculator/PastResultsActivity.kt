@@ -141,7 +141,7 @@ class PastResultsActivity : AppCompatActivity() {
         return colorsToNames[color] ?: ""
     }
 
-    private fun calculateResistance(selectedStripes: List<Int>): String {
+    fun calculateResistance(selectedStripes: List<Int>): String {
         val colorsToValues = mapOf(
             "None" to 0,
             "Black" to 1,
@@ -286,7 +286,7 @@ class PastResultsActivity : AppCompatActivity() {
             val formattedResistance = when {
                 resistanceValue >= 1e9 -> "${decimalFormat.format(resistanceValue / 1e9)} GΩ"
                 resistanceValue >= 1e6 -> "${decimalFormat.format(resistanceValue / 1e6)} MΩ"
-                resistanceValue >= 1 -> "${decimalFormat.format(resistanceValue)} Ω"
+                resistanceValue >= 1e3 -> "${decimalFormat.format(resistanceValue / 1e3)} KΩ"
                 resistanceValue > 0 -> "${decimalFormat.format(resistanceValue)} Ω"
                 else -> "0 Ω"
             }

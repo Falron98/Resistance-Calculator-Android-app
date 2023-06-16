@@ -12,34 +12,34 @@ import java.io.*
 
 class ChooseStripesActivity : AppCompatActivity() {
     private lateinit var stripeNumberSpinner: Spinner
-    private lateinit var stripeSpinnersContainer: LinearLayout
-    private lateinit var submitButton: Button
+    lateinit var stripeSpinnersContainer: LinearLayout
+    lateinit var submitButton: Button
     private lateinit var saveButton: Button
     private lateinit var loadButton: Button
     private lateinit var deleteButton: Button
     private lateinit var configurationsSpinner: Spinner
     private lateinit var configurationNameEditText: EditText
 
-    private val normalColorOptions = arrayOf(
+    val normalColorOptions = arrayOf(
         "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Gray", "White"
     )
 
-    private val multiplierColorOptions = arrayOf(
+    val multiplierColorOptions = arrayOf(
         "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Gray", "White", "Silver", "Gold"
     )
 
-    private val toleranceColorOptions = arrayOf(
+    val toleranceColorOptions = arrayOf(
         "None", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Gray", "Silver", "Gold"
     )
 
-    private val temperatureColorOptions = arrayOf(
+    val temperatureColorOptions = arrayOf(
         "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Gray"
     )
 
-    private val savedConfigurations = mutableListOf<Pair<String, List<Int>>>()
+    var savedConfigurations = mutableListOf<Pair<String, List<Int>>>()
 
     @SuppressLint("MissingInflatedId")
-    override fun onCreate(savedInstanceState: Bundle?) {
+    public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choose_stripes)
 
@@ -146,7 +146,7 @@ class ChooseStripesActivity : AppCompatActivity() {
         loadConfigurationsFromFile()
     }
 
-    private fun getColorForStripe(color: String): Int {
+    fun getColorForStripe(color: String): Int {
         return when (color) {
             "None" -> Color.TRANSPARENT
             "Black" -> ContextCompat.getColor(this, R.color.black)
@@ -165,7 +165,7 @@ class ChooseStripesActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkSubmitButtonState() {
+    fun checkSubmitButtonState() {
         var isSubmitButtonEnabled = true
         for (i in 0 until stripeSpinnersContainer.childCount) {
             val stripeSpinner = stripeSpinnersContainer.getChildAt(i) as Spinner
@@ -186,7 +186,7 @@ class ChooseStripesActivity : AppCompatActivity() {
         configurationsSpinner.adapter = adapter
     }
 
-    private fun setStripeColors(colors: List<Int>) {
+    fun setStripeColors(colors: List<Int>) {
         if (stripeSpinnersContainer.childCount != colors.size) {
             return
         }
@@ -197,7 +197,7 @@ class ChooseStripesActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveConfigurationsToFile() {
+    fun saveConfigurationsToFile() {
         val file = File(applicationContext.filesDir, "configurations.txt")
         val fileOutputStream = FileOutputStream(file)
         val objectOutputStream = ObjectOutputStream(fileOutputStream)
@@ -206,7 +206,7 @@ class ChooseStripesActivity : AppCompatActivity() {
         fileOutputStream.close()
     }
 
-    private fun loadConfigurationsFromFile() {
+    fun loadConfigurationsFromFile() {
         val file = File(applicationContext.filesDir, "configurations.txt")
         if (file.exists()) {
             val fileInputStream = FileInputStream(file)
@@ -221,7 +221,7 @@ class ChooseStripesActivity : AppCompatActivity() {
     }
 
 
-    private fun getStripeColorOptions(position: Int, numStripes: Int): Array<String> {
+    fun getStripeColorOptions(position: Int, numStripes: Int): Array<String> {
         return when (numStripes) {
             3 -> {
                 when (position) {

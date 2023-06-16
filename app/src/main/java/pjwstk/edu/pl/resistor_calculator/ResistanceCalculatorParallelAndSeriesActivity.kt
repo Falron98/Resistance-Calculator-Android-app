@@ -15,7 +15,7 @@ class ResistanceCalculatorParallelAndSeriesActivity : AppCompatActivity() {
     private lateinit var buttonCalculateSeries: Button
     private lateinit var buttonCalculateParallel: Button
     private lateinit var textViewResult: TextView
-    private lateinit var radioButtonKiloohms: RadioButton
+    lateinit var radioButtonKiloohms: RadioButton
     private lateinit var radioButtonMegaohms: RadioButton
 
     @SuppressLint("MissingInflatedId")
@@ -83,7 +83,7 @@ class ResistanceCalculatorParallelAndSeriesActivity : AppCompatActivity() {
     }
 
     // Formatting the resistance value based on the selected unit
-    private fun formatResistanceValue(resistance: Double): String {
+    fun formatResistanceValue(resistance: Double): String {
         val selectedUnit = getSelectedResistanceUnit()
         val formattedValue: String
 
@@ -103,7 +103,7 @@ class ResistanceCalculatorParallelAndSeriesActivity : AppCompatActivity() {
     }
 
     // Choose resistance unit
-    private fun getSelectedResistanceUnit(): String {
+    fun getSelectedResistanceUnit(): String {
         return when {
             radioButtonKiloohms.isChecked -> "kΩ"
             radioButtonMegaohms.isChecked -> "MΩ"
