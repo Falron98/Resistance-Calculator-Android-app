@@ -17,3 +17,19 @@ Bartosz Krystowski s19545</br>
   <li>Function for calculating parallel resistors</li>
   <li>Adding the option to select the language of the user interface, such as English, Polish, etc.</li>
 </ul>
+
+<h2>Demo:</h2>
+Calculate an example resistor
+[1.webm](https://github.com/s21162-pj/Pamo_projekt/assets/56191739/841a7e6f-56d8-41b9-8d64-91f3083ba23a)
+Save the resistor configuration for later
+[2.webm](https://github.com/s21162-pj/Pamo_projekt/assets/56191739/b3a9fd7a-6472-4959-8082-62a2ede3343e)
+Load saved configurations
+[3.webm](https://github.com/s21162-pj/Pamo_projekt/assets/56191739/70a2b7b9-160e-47ee-ac7b-067ce0d8e56c)
+Calculate parallel and series resistance
+[4.webm](https://github.com/s21162-pj/Pamo_projekt/assets/56191739/da9eab0e-9329-4c45-a7af-cb8c3d013fdc)
+Compare saved configurations side by side
+[5.webm](https://github.com/s21162-pj/Pamo_projekt/assets/56191739/84b0f39c-892a-456e-822c-08aabb2ea8b8)
+Help - cheat sheet
+[6.webm](https://github.com/s21162-pj/Pamo_projekt/assets/56191739/277504bb-4a02-4850-a86e-639e637f2641)
+Settings - dark mode switch
+[7.webm](https://github.com/s21162-pj/Pamo_projekt/assets/56191739/427167c3-8d81-49ef-9f88-416d079165a7)
