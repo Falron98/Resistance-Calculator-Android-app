@@ -3,6 +3,8 @@ package pjwstk.edu.pl.resistor_calculator
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 
 import android.widget.Button
 import android.widget.EditText
@@ -39,6 +41,15 @@ class ResistanceCalculatorParallelAndSeriesActivity : AppCompatActivity() {
         buttonCalculateParallel.setOnClickListener {
             calculateParallelResistance()
         }
+        // TextWatcher for validating resistor input
+        editTextResistors.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                validateResistorInput(s)
+            }})
     }
 
     // Parsing user-entered resistor values
@@ -110,4 +121,12 @@ class ResistanceCalculatorParallelAndSeriesActivity : AppCompatActivity() {
             else -> "Ω"
         }
     }
-}
+    // Validate resistor input to allow only numbers and comma
+    private fun validateResistorInput(s: Editable?) {
+        val regex = Regex("""[^0-9,]""")
+        val result = regex.replace(s.toString(), "")
+        if (result != s.toString()) {
+            editTextResistors.setText(result)
+            editTextResistors.setSelection(result.length)
+        }
+}}
