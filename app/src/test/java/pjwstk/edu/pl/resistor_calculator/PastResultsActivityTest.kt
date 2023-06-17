@@ -16,33 +16,41 @@ class PastResultsActivityTest {
 
     @Test
     fun testCalculateResistanceWithThreeStripes() {
-        val selectedStripes = listOf(2, 3, 5) // Example input
+        // Example input and expected output
+        val selectedStripes = listOf(2, 3, 5)
         val expectedResistance = "Resistance: 120 KΩ, Tolerance: ±20%"
 
+        // Calculate the resistance using the activity's method
         val actualResistance = activity.calculateResistance(selectedStripes)
 
+        // Verify the calculated resistance matches the expected result
         assertEquals(expectedResistance, actualResistance)
     }
 
     @Test
     fun testCalculateResistanceWithFourStripes() {
-        val selectedStripes = listOf(3, 4, 6, 7) // Example input
+        // Example input and expected output
+        val selectedStripes = listOf(3, 4, 6, 7)
         val expectedResistance = "Resistance: 2.3 MΩ, Tolerance: ±0.25%"
 
+        // Calculate the resistance using the activity's method
         val actualResistance = activity.calculateResistance(selectedStripes)
 
+        // Verify the calculated resistance matches the expected result
         assertEquals(expectedResistance, actualResistance)
     }
 
     @Test
     fun testCalculateResistanceWithFiveStripes() {
-        val selectedStripes = listOf(1, 2, 3, 5, 9) // Example input
+        // Example input and expected output
+        val selectedStripes = listOf(1, 2, 3, 5, 9)
         val expectedResistance = "Resistance: 120 KΩ, Tolerance: ±0.01%"
 
+        // Calculate the resistance using the activity's method
         val actualResistance = activity.calculateResistance(selectedStripes)
 
+        // Verify the calculated resistance matches the expected result
         assertEquals(expectedResistance, actualResistance)
     }
 
-    // Add more tests for other scenarios and methods as needed
 }

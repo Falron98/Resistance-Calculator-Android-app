@@ -1,59 +1,80 @@
 package pjwstk.edu.pl.resistor_calculator
 
-import android.graphics.Color
-import org.junit.Assert.*
-import org.junit.Before
+import android.widget.LinearLayout
+import android.widget.Spinner
+import org.junit.Assert
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
 
-@RunWith(RobolectricTestRunner::class)
-@Config(manifest = Config.NONE)
-class GetStripesTest {
+class ChooseStripesActivity_SetStripesTest {
 
-    private lateinit var chooseStripesActivity: ChooseStripesActivity
+    // Mock LinearLayout class for testing purposes
+    private class MockLinearLayout : LinearLayout(null) {
+        private val childCountInternal: Int
+            get() = 0
 
-    @Before
-    fun setUp() {
-        chooseStripesActivity = ChooseStripesActivity()
+        override fun getChildCount(): Int {
+            return childCountInternal
+        }
+    }
+
+    // Mock Spinner class for testing purposes
+    private class MockSpinner : Spinner(null) {
+        private var selectedItemPositionInternal: Int = 0
+
+        override fun getSelectedItemPosition(): Int {
+            return selectedItemPositionInternal
+        }
+
+        override fun setSelection(position: Int) {
+            selectedItemPositionInternal = position
+        }
+    }
+
+    // Create a mock LinearLayout object to hold the mock Spinners
+    private val stripeSpinnersContainer = MockLinearLayout()
+
+    // Helper function to set the stripe colors in the mock Spinners
+    private fun setStripeColors(colors: List<Int>) {
+        // Check if the number of colors matches the number of child Spinners
+        if (stripeSpinnersContainer.getChildCount() != colors.size) {
+            return
+        }
+        // Set the selected color in each Spinner based on the colors list
+        for (i in 0 until stripeSpinnersContainer.getChildCount()) {
+            val stripeSpinner = stripeSpinnersContainer.getChildAt(i) as MockSpinner
+            val colorIndex = colors[i]
+            stripeSpinner.setSelection(colorIndex)
+        }
     }
 
     @Test
-    fun getColorForStripe_None_ReturnsTransparent() {
-        val color = chooseStripesActivity.getColorForStripe("None")
-        assertEquals(Color.TRANSPARENT, color)
+    fun testSetStripeColors() {
+        val colors = listOf(2, 4, 1)
+        setStripeColors(colors)
+
+        // Verify that each Spinner has the correct selected color
+        for (i in 0 until stripeSpinnersContainer.getChildCount()) {
+            val stripeSpinner = stripeSpinnersContainer.getChildAt(i) as MockSpinner
+            val expectedColorIndex = colors[i]
+            val actualColorIndex = stripeSpinner.getSelectedItemPosition()
+            Assert.assertEquals(
+                "Mismatch in color index at position $i",
+                expectedColorIndex,
+                actualColorIndex
+            )
+        }
     }
 
     @Test
-    fun getStripeColorOptions_ThreeStripes_ReturnsCorrectOptions() {
-        val expectedOptions = chooseStripesActivity.normalColorOptions
-        val actualOptions = chooseStripesActivity.getStripeColorOptions(1, 3)
-        assertArrayEquals(expectedOptions, actualOptions)
+    fun testSetStripeColors_IncorrectChildCount() {
+        val colors = listOf(2, 4, 1, 3)
+        setStripeColors(colors)
+
+        // Verify that the number of child Spinners is not equal to the number of colors
+        Assert.assertNotEquals(
+            "Mismatch in child count",
+            colors.size,
+            stripeSpinnersContainer.getChildCount()
+        )
     }
-
-    @Test
-    fun getStripeColorOptions_FourStripes_ReturnsCorrectOptions() {
-        val expectedOptions = chooseStripesActivity.multiplierColorOptions
-        val actualOptions = chooseStripesActivity.getStripeColorOptions(3, 4)
-        assertArrayEquals(expectedOptions, actualOptions)
-    }
-
-    @Test
-    fun getStripeColorOptions_FiveStripes_ReturnsCorrectOptions() {
-        val expectedOptions = chooseStripesActivity.toleranceColorOptions
-        val actualOptions = chooseStripesActivity.getStripeColorOptions(5, 5)
-        assertArrayEquals(expectedOptions, actualOptions)
-    }
-
-    @Test
-    fun getStripeColorOptions_SixStripes_ReturnsCorrectOptions() {
-        val expectedOptions = chooseStripesActivity.temperatureColorOptions
-        val actualOptions = chooseStripesActivity.getStripeColorOptions(6, 6)
-        assertArrayEquals(expectedOptions, actualOptions)
-    }
-
-
-
 }
-

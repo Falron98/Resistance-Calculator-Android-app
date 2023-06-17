@@ -18,6 +18,7 @@ class CalculateResistanceActivityTest {
     fun setup() {
         MockitoAnnotations.openMocks(this)
     }
+
     @Test
     fun testCalculateThreeFourBandResistance() {
         val stripes = listOf("Brown", "Black", "Red")
@@ -33,15 +34,18 @@ class CalculateResistanceActivityTest {
         assertEquals(expectedResult, actualResult, 0.0)
     }
 
-
     @Test
     fun testCalculateFiveSixBandResistance() {
         val stripes = listOf("Brown", "Black", "Red", "Orange")
         val expectedResult = 1200.0 // (1 * 100 + 2 * 10 + 3) * 1000
 
+        // Configure the behavior of the mock
         `when`(CalculateResistanceActivity.calculateFiveSixBandResistance(stripes)).thenReturn(expectedResult)
 
+        // Perform the test
         val actualResult = CalculateResistanceActivity.calculateFiveSixBandResistance(stripes)
+
+        // Verify the result
         assertEquals(expectedResult, actualResult, 0.0)
     }
 
@@ -50,9 +54,13 @@ class CalculateResistanceActivityTest {
         val stripes = listOf("Brown", "Black", "Red", "Orange")
         val expectedTolerance = "±0.05%"
 
+        // Configure the behavior of the mock
         `when`(CalculateResistanceActivity.getToleranceValue(stripes)).thenReturn(expectedTolerance)
 
+        // Perform the test
         val actualTolerance = CalculateResistanceActivity.getToleranceValue(stripes)
+
+        // Verify the result
         assertEquals(expectedTolerance, actualTolerance)
     }
 
@@ -61,9 +69,13 @@ class CalculateResistanceActivityTest {
         val color = "Black"
         val expectedValue = 0
 
+        // Configure the behavior of the mock
         `when`(CalculateResistanceActivity.getColorValue(color)).thenReturn(expectedValue)
 
+        // Perform the test
         val actualValue = CalculateResistanceActivity.getColorValue(color)
+
+        // Verify the result
         assertEquals(expectedValue, actualValue)
     }
 
@@ -72,9 +84,13 @@ class CalculateResistanceActivityTest {
         val color = "Brown"
         val expectedMultiplier = 10.0
 
+        // Configure the behavior of the mock
         `when`(CalculateResistanceActivity.getMultiplierValue(color)).thenReturn(expectedMultiplier)
 
+        // Perform the test
         val actualMultiplier = CalculateResistanceActivity.getMultiplierValue(color)
+
+        // Verify the result
         if (actualMultiplier != null) {
             assertEquals(expectedMultiplier, actualMultiplier, 0.0)
         }
@@ -85,9 +101,13 @@ class CalculateResistanceActivityTest {
         val stripes = listOf("Brown", "Black", "Red", "Orange")
         val expectedTemperatureCoefficient = "15 ppm/°C"
 
+        // Configure the behavior of the mock
         `when`(CalculateResistanceActivity.getTemperatureCoefficientValue(stripes)).thenReturn(expectedTemperatureCoefficient)
 
+        // Perform the test
         val actualTemperatureCoefficient = CalculateResistanceActivity.getTemperatureCoefficientValue(stripes)
+
+        // Verify the result
         assertEquals(expectedTemperatureCoefficient, actualTemperatureCoefficient)
     }
 
@@ -96,9 +116,13 @@ class CalculateResistanceActivityTest {
         val resistanceValue = 1234567.89
         val expectedFormattedValue = "1.23 MΩ"
 
+        // Configure the behavior of the mock
         `when`(CalculateResistanceActivity.formatResistanceValue(resistanceValue)).thenReturn(expectedFormattedValue)
 
+        // Perform the test
         val actualFormattedValue = CalculateResistanceActivity.formatResistanceValue(resistanceValue)
+
+        // Verify the result
         assertEquals(expectedFormattedValue, actualFormattedValue)
     }
 }
