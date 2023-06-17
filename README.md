@@ -11,7 +11,7 @@ Bartosz Krystowski s19545</br>
   <li>Option to reset inputted values and calculation results</li>
   <li>Adding the option to select the number of bands on the resistor, such as 4-band, 5-band, etc.</li>
   <li>Adding the option to select the precision of resistance (tolerance).</li>
-  <li>Option to save calculation results to history, allowing users to view and replay them.</li>\
+  <li>Option to save calculation results to history, allowing users to view and replay them.</li>
   <li>Adding the option to choose a light or dark mode for the application interface.</li>
   <li>Function for calculating parallel resistors</li>
 </ul>
