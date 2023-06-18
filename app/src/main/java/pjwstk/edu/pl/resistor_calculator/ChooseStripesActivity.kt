@@ -20,6 +20,7 @@ class ChooseStripesActivity : AppCompatActivity() {
     private lateinit var configurationsSpinner: Spinner
     private lateinit var configurationNameEditText: EditText
 
+    // Color options for different stripes
     val normalColorOptions = arrayOf(
         "None", "Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Gray", "White"
     )
@@ -52,6 +53,7 @@ class ChooseStripesActivity : AppCompatActivity() {
         configurationsSpinner = findViewById(R.id.configurationsSpinner)
         configurationNameEditText = findViewById(R.id.configurationNameEditText)
 
+        // Set up the spinner for selecting the number of stripes
         val stripeOptions = arrayOf("3 Stripes", "4 Stripes", "5 Stripes", "6 Stripes")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, stripeOptions)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -64,6 +66,7 @@ class ChooseStripesActivity : AppCompatActivity() {
 
                 stripeSpinnersContainer.removeAllViews()
 
+                // Create spinner views
                 for (i in 1..numStripes) {
                     val stripeSpinner = Spinner(this@ChooseStripesActivity)
                     val stripeAdapter = ArrayAdapter(this@ChooseStripesActivity, android.R.layout.simple_spinner_item, getStripeColorOptions(i, numStripes))
@@ -74,7 +77,7 @@ class ChooseStripesActivity : AppCompatActivity() {
 
                     stripeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
+                            // Handle the selection of color for each stripe
                             checkSubmitButtonState()
 
                             val selectedColor = stripeAdapter.getItem(position).toString()
@@ -145,7 +148,7 @@ class ChooseStripesActivity : AppCompatActivity() {
 
         loadConfigurationsFromFile()
     }
-
+    // Set the colors of the stripes
     fun getColorForStripe(color: String): Int {
         return when (color) {
             "None" -> Color.TRANSPARENT
@@ -165,6 +168,7 @@ class ChooseStripesActivity : AppCompatActivity() {
         }
     }
 
+    // Check the state of the submit button based on selected colors
     fun checkSubmitButtonState() {
         var isSubmitButtonEnabled = true
         for (i in 0 until stripeSpinnersContainer.childCount) {
@@ -179,6 +183,7 @@ class ChooseStripesActivity : AppCompatActivity() {
         submitButton.alpha = if (isSubmitButtonEnabled) 1.0f else 0.5f
     }
 
+    // Update the configurations spinner with saved configuration names
     private fun updateConfigurationsSpinner() {
         val configurationNames = savedConfigurations.map { it.first }
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, configurationNames)
@@ -186,6 +191,7 @@ class ChooseStripesActivity : AppCompatActivity() {
         configurationsSpinner.adapter = adapter
     }
 
+    // Set the colors of the stripes
     fun setStripeColors(colors: List<Int>) {
         if (stripeSpinnersContainer.childCount != colors.size) {
             return
@@ -197,6 +203,7 @@ class ChooseStripesActivity : AppCompatActivity() {
         }
     }
 
+    // Save the configurations to a file
     fun saveConfigurationsToFile() {
         val file = File(applicationContext.filesDir, "configurations.txt")
         val fileOutputStream = FileOutputStream(file)
@@ -206,6 +213,7 @@ class ChooseStripesActivity : AppCompatActivity() {
         fileOutputStream.close()
     }
 
+    // Load the configurations from a file
     fun loadConfigurationsFromFile() {
         val file = File(applicationContext.filesDir, "configurations.txt")
         if (file.exists()) {
@@ -219,7 +227,6 @@ class ChooseStripesActivity : AppCompatActivity() {
         }
         updateConfigurationsSpinner()
     }
-
 
     fun getStripeColorOptions(position: Int, numStripes: Int): Array<String> {
         return when (numStripes) {
